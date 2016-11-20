@@ -30,6 +30,14 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
+            /*'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'localhost',
+                'username' => 'username',
+                'password' => 'password',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],*/
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -46,7 +54,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'category/<id:\d+>' => 'category/view'
+                'category/<id:\d+>/page/<page:\d>' => 'category/view',
+                'category/<id:\d+>' => 'category/view',
+                'product/<id:\d+>' => 'product/view',
+                'search' => 'category/search',
             ],
         ],
 
