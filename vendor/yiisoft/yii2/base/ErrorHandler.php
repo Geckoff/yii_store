@@ -34,7 +34,7 @@ abstract class ErrorHandler extends Component
      * the help of this reserved memory. If you set this value to be 0, no memory will be reserved.
      * Defaults to 256KB.
      */
-    public $memoryReserveSize = 262144;
+    public $memoryReserveSize = 2621/*44*/;
     /**
      * @var \Exception the exception that is being handled currently.
      */

@@ -28,7 +28,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['post', 'get'],               // logout is accessable only with post method
                 ],
             ],
         ];
@@ -59,10 +59,10 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {     // if there is data sent from login form
             return $this->goBack();
         }
-        return $this->render('login', [
+        return $this->render('login', [                                        // if there is NO data sent from login form
             'model' => $model,
         ]);
     }

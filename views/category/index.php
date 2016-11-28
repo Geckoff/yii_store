@@ -108,7 +108,7 @@ use yii\helpers\Html;
 						</div><!--/shipping-->
 
 					</div>
-				</div>
+				</div>                                     
 
 				<div class="col-sm-9 padding-right">
                     <?php if(!empty($hits)): ?>

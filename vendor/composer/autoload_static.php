@@ -15,6 +15,7 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
+            'yii\\jui\\' => 8,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -22,6 +23,15 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
             'yii\\codeception\\' => 16,
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
+        ),
+        'r' => 
+        array (
+            'rico\\yii2images\\' => 16,
+        ),
+        'm' => 
+        array (
+            'mihaildev\\elfinder\\' => 19,
+            'mihaildev\\ckeditor\\' => 19,
         ),
         'c' => 
         array (
@@ -37,6 +47,10 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
+        ),
+        'yii\\jui\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-jui',
         ),
         'yii\\gii\\' => 
         array (
@@ -66,6 +80,18 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'rico\\yii2images\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/costa-rico/yii2-images',
+        ),
+        'mihaildev\\elfinder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mihaildev/yii2-elfinder',
+        ),
+        'mihaildev\\ckeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mihaildev/yii2-ckeditor',
+        ),
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
@@ -77,6 +103,13 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
     );
 
     public static $prefixesPsr0 = array (
+        'a' => 
+        array (
+            'abeautifulsite' => 
+            array (
+                0 => __DIR__ . '/..' . '/abeautifulsite/simpleimage/src',
+            ),
+        ),
         'H' => 
         array (
             'HTMLPurifier' => 
@@ -93,12 +126,38 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
         ),
     );
 
+    public static $classMap = array (
+        'RecursiveCallbackFilterIterator' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeLocalFileSystem.class.php',
+        'elFinder' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinder.class.php',
+        'elFinderConnector' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderConnector.class.php',
+        'elFinderLibGdBmp' => __DIR__ . '/..' . '/studio-42/elfinder/php/libs/GdBmp.php',
+        'elFinderPluginAutoResize' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/AutoResize/plugin.php',
+        'elFinderPluginAutoRotate' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/AutoRotate/plugin.php',
+        'elFinderPluginNormalizer' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Normalizer/plugin.php',
+        'elFinderPluginSanitizer' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Sanitizer/plugin.php',
+        'elFinderPluginWatermark' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Watermark/plugin.php',
+        'elFinderSession' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderSession.php',
+        'elFinderSessionInterface' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderSessionInterface.php',
+        'elFinderVolumeBox' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeBox.class.php',
+        'elFinderVolumeDriver' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeDriver.class.php',
+        'elFinderVolumeDropbox' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeDropbox.class.php',
+        'elFinderVolumeFTP' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeFTP.class.php',
+        'elFinderVolumeFlysystemGoogleDriveCache' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderFlysystemGoogleDriveNetmount.php',
+        'elFinderVolumeFlysystemGoogleDriveNetmount' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderFlysystemGoogleDriveNetmount.php',
+        'elFinderVolumeGoogleDrive' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeGoogleDrive.class.php',
+        'elFinderVolumeGroup' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeGroup.class.php',
+        'elFinderVolumeLocalFileSystem' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeLocalFileSystem.class.php',
+        'elFinderVolumeMySQL' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeMySQL.class.php',
+        'elFinderVolumeOneDrive' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeOneDrive.class.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188::$classMap;
 
         }, null, ClassLoader::class);
     }

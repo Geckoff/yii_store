@@ -58,7 +58,6 @@ class CartController extends AppController {
     }
 
     public function actionView() {
-        debug(Yii::$app->params['adminEmail']);
         $session = Yii::$app->session;
         $session->open();
         $this->setMeta('Cart');
@@ -90,7 +89,7 @@ class CartController extends AppController {
             $order_items->name = $item['name'];
             $order_items->price = $item['price'];
             $order_items->qty_item = $item['qty'];
-            $order_items->sum_item = $item['sum'] * $item['price'];
+            $order_items->sum_item = $item['qty'] * $item['price'];
             $order_items->save();
         }
     }

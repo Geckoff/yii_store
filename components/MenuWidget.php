@@ -10,6 +10,7 @@ class MenuWidget extends Widget  {
 
     public $tpl;        // parameter that is used while calling function widget() for showing widget in view file
     public $data;       // categories array
+    public $model;
     public $tree;       // setting of tree array
     public $menuHtml;
 
@@ -23,16 +24,21 @@ class MenuWidget extends Widget  {
 
     public function run() {
         // get cache
-        $menu = Yii::$app->cache->get('menu');
-        if ($menu) {
-            return $menu;
+        if ($this->tpl == 'menu.php'){        // pulling out menu from cache only for client's side
+            $menu = Yii::$app->cache->get('menu');
+            if ($menu) {
+                return $menu;
+            }
         }
+
 
         $this->data = Category::find()->indexBy('id')->asArray()->all();    // indexBy() - what field is used for array indexing
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
         //set cache
-        Yii::$app->cache->set('menu', $this->menuHtml, 60);
+        if ($this->tpl == 'menu.php'){         // setting up menu to cache only for client's side
+            Yii::$app->cache->set('menu', $this->menuHtml, 60);
+        }
         return $this->menuHtml;
     }
 
@@ -50,15 +56,15 @@ class MenuWidget extends Widget  {
         return $tree;
     }
 
-    protected function getMenuHtml($tree) {
+    protected function getMenuHtml($tree, $tab = '') {
         $str = '';
         foreach ($tree as $category) {
-            $str .= $this->catToTemplate($category);
+            $str .= $this->catToTemplate($category, $tab);
         }
         return $str;
     }
 
-    protected function catToTemplate($category) {
+    protected function catToTemplate($category, $tab) {
         //ob_start();
         include __DIR__.'/menu_tpl/'.$this->tpl;
         //return ob_get_clean();
