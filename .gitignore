@@ -25,3 +25,6 @@ phpunit.phar
 
 # db settings
 config/db.php
+
+# costa-rico
+vendor/costa-rico
