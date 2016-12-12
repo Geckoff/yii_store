@@ -3,6 +3,7 @@
     use yii\helpers\Html;
     use yii\helpers\Url;
     use yii\widgets\ActiveForm;
+    use app\helpers\Currency;
 ?>
 
 <div class="container">
@@ -23,7 +24,7 @@
 
     <?php if (!empty($session['cart'])): ?>
         <div class="table-responsive">
-            <table class="table table-hover table-stripped">
+            <table class="table table-hover table-stripped"  id="cart-view">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -35,23 +36,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php ?>
                 <?php foreach ($session['cart'] as $id => $item): ?>
                     <tr>
                         <td><?= \yii\helpers\Html::img($item['img'], ['alt' => $item['name'], 'height' => '50px'])  ?></td>
                         <td><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $id]) ?>"><?= $item['name'] ?></a></td>
                         <td><?= $item['qty'] ?></td>
-                        <td><?= $item['price'] ?></td>
-                        <td><?= $item['price'] * $item['qty'] ?></td>
+                        <td><?= Currency::getPrice($item['price'], true);?></td>
+                        <td><?= Currency::getPrice($item['price'], true, $item['qty']);?></td>
                         <td><span data-id="<?= $id ?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
                     </tr>
                 <?php endforeach; ?>
                     <tr>
                         <td colspan="5">Items in the cart:</td>
-                        <td><?= $session['cart.qty'] ?></td>
+                        <td id="all-items"><?= $session['cart.qty'] ?></td>
                     </tr>
                     <tr>
                         <td colspan="5">Final Price:</td>
-                        <td><?= $session['cart.sum'] ?></td>
+                        <td id="full-price"><?= Currency::getPrice($session['cart.sum'], true);?></td>
                     </tr>
                 </tbody>
             </table>

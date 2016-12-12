@@ -2536,4 +2536,87 @@ h2.title {
   color: #FE980F;
 }
 
+/*My Styles*/
 
+.my-widget {
+    margin-top: 35px;
+}
+
+.free-call {
+    margin-top: 40px;
+}
+
+.free-call {
+    text-align: center;
+}
+
+.free-call h4 {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+.free-call p {
+    font-size: 58px;
+    line-height: 63px;
+    color: #FE980F;
+}
+
+.item-rating {
+    position: relative;
+}
+
+.rating-helper {
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    display: none;
+}
+
+#display-rating-block, #no-rating {
+    height: 46px;
+}
+
+#no-rating {
+    padding-bottom: 8px;
+    padding-top: 18px;
+}
+
+.votes-0 {
+    color: #ccc;
+}
+
+
+/* filters */
+
+.clearfix {
+    clear: both;
+}
+
+.item-filters {
+    overflow: hidden;
+}
+
+.item-filters p{
+    float: right;
+}
+
+.item-filters select {
+    width: auto;
+    float: right;
+}
+
+.cat-h2 {
+
+}
+
+.nav.nav-pills.nav-stacked .active,
+.catalog.category-products .active {
+    color: #fdb45e;
+}
+
+.zoomer-preview {
+    width: 19%;
+}

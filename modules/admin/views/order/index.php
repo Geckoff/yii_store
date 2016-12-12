@@ -39,7 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'phone',
             // 'address',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            /*['class' => 'yii\grid\ActionColumn'],   */
+             [
+                'class' => 'yii\grid\CheckboxColumn',
+            ],
         ],
     ]); ?>
 </div>

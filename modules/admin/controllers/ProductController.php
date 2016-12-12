@@ -24,7 +24,7 @@ class ProductController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST', 'GET'],
                 ],
             ],
         ];
@@ -36,12 +36,15 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
+        $sort = Yii::$app->request->get('sort') ? Yii::$app->request->get('sort') : 'no-sort';
+
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find(),
         ]);
         //var_dump(Yii::$app);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'sort' => $sort
         ]);
     }
 
@@ -112,9 +115,15 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleteCheck() {
+        $selection=Yii::$app->request->post('selection');
+        debug($selection);
     }
 
     /**

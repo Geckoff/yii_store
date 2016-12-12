@@ -14,7 +14,6 @@ class ContactForm extends Model
     public $email;
     public $subject;
     public $body;
-    public $verifyCode;
 
     /**
      * @return array the validation rules.
@@ -25,19 +24,7 @@ class ContactForm extends Model
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
-            ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
-        ];
-    }
-
-    /**
-     * @return array customized attribute labels
-     */
-    public function attributeLabels()
-    {
-        return [
-            'verifyCode' => 'Verification Code',
+            ['email', 'email']
         ];
     }
 
@@ -52,8 +39,14 @@ class ContactForm extends Model
             Yii::$app->mailer->compose()
                 ->setTo($email)
                 ->setFrom([$this->email => $this->name])
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
+                ->setSubject('Message from Random Store: '.$this->subject)
+                ->setHtmlBody('<h2>Message from:</h2><br>'.$this->name.' - '.$this->email.'<br><h2>Subject:</h2><br>'.$this->subject.'<br><h2>Message:</h2><br>'.$this->body)
+                ->send();
+            Yii::$app->mailer->compose()
+                ->setTo($this->email)
+                ->setFrom(['no-reply@hetsevich.com' => 'Random Store'])
+                ->setSubject('Your massage is recieved')
+                ->setHtmlBody($this->name.'!<br>Thank you for contacting Random Store. Our assistant will contact you soon.')
                 ->send();
 
             return true;

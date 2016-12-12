@@ -72,9 +72,15 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'category/<id:\d+>/page/<page:\d>' => 'category/view',
+                'category/<slug:\w+>/page/<page:\d>' => 'category/view',
+                'brand/<slug:\w+>/page/<page:\d>' => 'brand/view',
                 'category/<id:\d+>' => 'category/view',
+                'category/<slug:\w+>' => 'category/view',
+                'brand/<slug:\w+>' => 'brand/view',
                 'product/<id:\d+>' => 'product/view',
                 'search' => 'category/search',
+                //'<slug:((\w+-+)+\w+)|\w+>' => 'post/view',
+                '<slug:^(?!admin|login)(((\w+-+)+\w+)|\w+)>' => 'post/view',
             ],
         ],
 

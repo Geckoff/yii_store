@@ -20,11 +20,13 @@ class AppAsset extends AssetBundle
     public $css = [
 //        'css/bootstrap.min.css',
         'css/font-awesome.min.css',
+        'css/fontawesome-stars-o.css',
         'css/prettyPhoto.css',
         'css/price-range.css',
         'css/animate.css',
-    	'css/main.css',
     	'css/responsive.css',
+        'http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
+        'css/main.css'
     ];
     public $js = [
         /*'js/jquery.js',
@@ -34,7 +36,10 @@ class AppAsset extends AssetBundle
         'js/jquery.prettyPhoto.js',
         'js/jquery.cookie.js',
         'js/jquery.accordion.js',
-        'js/main.js'
+        'js/jquery.barrating.js',
+        'js/main.js',
+        'js/main-admin.js',
+        'js/jquery.elevatezoom.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

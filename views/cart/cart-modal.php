@@ -1,3 +1,4 @@
+<?php use app\helpers\Currency;   ?>
 <?php if (!empty($session['cart'])): ?>
         <div class="table-responsive">
             <table class="table table-hover table-stripped">
@@ -11,12 +12,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($session['cart'] as $id => $item): ?>
+                <?php //debug($session['cart'])  ?>
+                <?php //debug($items_to_show)  ?>
+                <?php foreach ($items_to_show as $id => $item): ?>
+                    <?php $mainImg = $item->getImage();   ?>
                     <tr>
-                        <td><?= \yii\helpers\Html::img($item['img'], ['alt' => $item['name'], 'height' => '50px'])  ?></td>
-                        <td><?= $item['name'] ?></td>
-                        <td><?= $item['qty'] ?></td>
-                        <td><?= $item['price'] ?></td>
+
+                        <td><?= \yii\helpers\Html::img($mainImg->getUrl(), ['alt' => $item->name, 'height'=>'50px']) ?></td>
+                        <td><?= $item->name ?></td>
+                        <td><?= $item->qty ?></td>
+                        <td><?= Currency::getPrice($item->price, true);?></td>
                         <td><span data-id="<?= $id ?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
                     </tr>
                 <?php endforeach; ?>
@@ -26,7 +31,7 @@
                     </tr>
                     <tr>
                         <td colspan="4">Final Price:</td>
-                        <td><?= $session['cart.sum'] ?></td>
+                        <td><?= Currency::getPrice($session['cart.sum'], true);?></td>
                     </tr>
                 </tbody>
             </table>

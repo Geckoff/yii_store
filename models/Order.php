@@ -61,6 +61,7 @@ class Order extends ActiveRecord
             [['sum'], 'number'],
             [['status'], 'boolean'],
             [['name', 'email', 'phone', 'address'], 'string', 'max' => 255],
+            [['currency'], 'string', 'max' => 5],
         ];
     }
 

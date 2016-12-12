@@ -1,3 +1,4 @@
+<?php use app\helpers\Currency;  ?>
 <div class="table-responsive">
     <table class="table table-hover table-stripped">
         <thead>
@@ -13,8 +14,8 @@
             <tr>
                 <td><?= $item['name'] ?></td><!--<?= \yii\helpers\Url::to(['product/view', 'id' => $id], true) ?> //link with domain name-->
                 <td><?= $item['qty'] ?></td>
-                <td><?= $item['price'] ?></td>
-                <td><?= $item['price'] * $item['qty'] ?></td>
+                <td><?= Currency::getPrice($item['price'], true);?></td>
+                <td><?= Currency::getPrice($item['price'] * $item['qty'], true);?></td>
             </tr>
         <?php endforeach; ?>
             <tr>
