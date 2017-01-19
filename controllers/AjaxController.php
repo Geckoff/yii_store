@@ -10,9 +10,7 @@ use Yii;
 class AjaxController extends AppController {
 
     protected function saveCookieCurrency($currency) {
-        $data = file_get_contents("http://api.fixer.io/latest?base=USD&symbols=".$currency);
-        $data = json_decode($data, true);
-        $rate = $data['rates'][$currency];
+        $rate = Currency::getRate($currency);
         if (!$rate) $rate = 1;
         $cookies = Yii::$app->response->cookies;
         $cookies->add(new \yii\web\Cookie([
@@ -39,7 +37,7 @@ class AjaxController extends AppController {
         $gets = [];
         $gets['min'] = $min;
         $gets['max'] = $max;
-        $query = Product::find()->orderBy(['price' => SORT_ASC])->where(['between','price', $min, $max]);
+        $query = Product::find()->orderBy(['price' => SORT_ASC])->where(['between','price', $min, $max])->andWhere(['active' => '1']);
         if ($sort = Yii::$app->request->get('sort')) {
             if ($sort == 'ascp') $query = $query->orderBy(['price' => SORT_ASC]);    // filter parameters were enabled
             if ($sort == 'descp') $query = $query->orderBy(['price' => SORT_DESC]);
@@ -49,8 +47,11 @@ class AjaxController extends AppController {
             if ($sort == 'rate') $query = $query->orderBy(['current_rating' => SORT_DESC]);
             $gets['sort'] = $sort;
         }
-        elseif (Yii::$app->request->get('min') && Yii::$app->request->get('max')) {
+        elseif (Yii::$app->request->get('min') || Yii::$app->request->get('max')) {
             $query = $query->orderBy(['price' => SORT_ASC]);
+        }
+        else {
+            $query = $query->orderBy(['order' => SORT_ASC]);
         }
 
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
@@ -70,6 +71,16 @@ class AjaxController extends AppController {
         $min = round($min * $rate);
         $max = round($max * $rate);
         return json_encode(['min' => $min, 'max' => $max, 'rate' => $rate]);
+    }
+
+    public function actionPoundEuroPrice() {
+        if (!Yii::$app->request->isAjax) return false;
+        $price = Yii::$app->request->post('price');
+        $currency = new Currency();
+        $rates = $currency->getCurencyRates();
+        $euro_price = round($rates['EUR'] * $price, 2);
+        $pound_price = round($rates['GBP'] * $price, 2);
+        return json_encode(['euro' => $euro_price, 'pound' => $pound_price]);
     }
 
 }

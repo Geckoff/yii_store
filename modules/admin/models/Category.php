@@ -15,6 +15,18 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+    			'class' => 'app\behaviors\Slug',
+    			'in_attribute' => 'name',
+    			'out_attribute' => 'slug',
+    			'translit' => true
+    		]
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -35,7 +47,8 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['parent_id'], 'integer'],
             [['name'], 'required'],
-            [['name', 'keywords', 'description'], 'string', 'max' => 255],
+            [['active'], 'number'],
+            [['name', 'keywords', 'description', 'slug'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,7 +58,7 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Category ID',
+            'id' => 'ID',
             'parent_id' => 'Parent',
             'name' => 'Name',
             'keywords' => 'Keywords',

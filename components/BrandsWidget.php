@@ -32,6 +32,16 @@ class BrandsWidget extends Widget  {
                 $html .= '<li><a href="'.\yii\helpers\Url::to(['brand/view', 'slug' => $brand['slug']]).'" '.$active.'>'.$brand['name'].'</a></li>';
             }
         }
+        elseif ($this->type == 'select'){
+            foreach ($brands as $brand) {
+                if (!empty($this->id)) {
+                    if ($brand['id'] == $this->id) $selected = 'selected';
+                    else $selected = '';
+                }
+                else $selected = '';
+                $html .= '<option value="'.$brand['id'].'" '.$selected.'>'.$brand['name'].'</option>';
+            }
+        }
         else {
             foreach ($brands as $brand) {
                 if (!empty($this->id)) {

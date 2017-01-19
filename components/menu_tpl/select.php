@@ -1,8 +1,11 @@
 <?php
 $selected = '';
 $disabled = '';
-$selected_var = isset($this->model->parent_id) ? $this->model->parent_id : $this->model->category_id ;
-//$selected_var = isset($this->model->category_id) ? $this->model->category_id : '';
+if ($this->category_add) $selected_var = false;
+else {
+    $selected_var = isset($this->model->parent_id) ? $this->model->parent_id : $this->model->category_id;
+}   
+if ($this->category_id) $selected_var = $this->category_id;
 
 if ($category['id'] == $selected_var) $selected = 'selected';
 if (isset($this->model->parent_id)) {

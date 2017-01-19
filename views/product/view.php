@@ -74,16 +74,14 @@ use app\helpers\Currency;
 										Add to cart
 									</a>
 								</span>
-								<p><b>Brand:</b><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $product->category->id]) ?>"> <?=$product->category->name ?></a></p>
+								<p><b>Category:</b><a href="<?= \yii\helpers\Url::to(['category/view', 'slug' => $product->category->slug]) ?>"> <?=$product->category->name ?></a></p>
+								<p><b>Brand:</b><a href="<?= \yii\helpers\Url::to(['brand/view', 'slug' => $product->brand->slug]) ?>"> <?=$product->brand->name ?></a></p>
 
                                 <?= $product->content ?>
 							</div><!--/product-information-->
 						</div>
 					</div>
 
-                    <script>
-
-                    </script>
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>
 
@@ -99,9 +97,9 @@ use app\helpers\Currency;
     										<div class="product-image-wrapper">
     											<div class="single-products">
     												<div class="productinfo text-center">
-    													<?= Html::img($mainImg->getUrl(), ['alt' => $hit->name]) ?>
+    													<a href="<?= \yii\helpers\Url::to(['product/view', 'slug' => $hit->slug]) ?>"><?= Html::img($mainImg->getUrl(), ['alt' => $hit->name]) ?></a>
     													<h2><?= Currency::getPrice($hit->price, true); ?></h2>
-    													<p><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $hit->id]) ?>"><?= $hit->name ?></a></p>
+    													<p><a href="<?= \yii\helpers\Url::to(['product/view', 'slug' => $hit->slug]) ?>"><?= $hit->name ?></a></p>
     													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
     												</div>
     											</div>

@@ -19,7 +19,7 @@ class CategoryController extends AppController {
         foreach ($sales_brands as $sales_brand) {
             $sales_brands_ids[] = $sales_brand['id'];
         }
-        $sales_products = Product::find()->where(['brand_id' => $sales_brands_ids])->all();
+        $sales_products = Product::find()->where(['brand_id' => $sales_brands_ids])->andWhere(['active' => '1'])->all();
         $brand_sales_products = [];
         foreach($sales_brands_ids as $sales_brands_id) {
             foreach($sales_products as $sales_product) {
@@ -29,7 +29,7 @@ class CategoryController extends AppController {
             }
         }
 
-        $hits = Product::find()->where(['hit' => '1'])->limit(6)->all();
+        $hits = Product::find()->where(['hit' => '1'])->andWhere(['active' => '1'])->limit(6)->all();
         $this->setMeta('E-SHOPPER');
         return $this->render('index', compact('hits', 'brand_sales_products', 'sales_brands', 'sales_products'));
     }
@@ -45,7 +45,7 @@ class CategoryController extends AppController {
         * with query above Pagination is not working as well as $query->count() if sorting by final_rating field is used (error is that query is not an object).
         * however if sorting is made by other fields everything is working fine. need to figure out why.
         */
-        $query = Product::find()->where(['category_id' => $category->id]);
+        $query = Product::find()->where(['category_id' => $category->id])->andWhere(['active' => '1']);
         if (Yii::$app->request->get('min') && Yii::$app->request->get('max')) {      // price range parameters were enabled
             $gets['min'] = Yii::$app->request->get('min');
             $gets['max'] = Yii::$app->request->get('max');
@@ -63,8 +63,11 @@ class CategoryController extends AppController {
             if ($sort == 'rate') $query = $query->orderBy(['current_rating' => SORT_DESC]);
             $gets['sort'] = $sort;
         }
-        elseif (Yii::$app->request->get('min') && Yii::$app->request->get('max')) {
+        elseif (Yii::$app->request->get('min') || Yii::$app->request->get('max')) {
             $query = $query->orderBy(['price' => SORT_ASC]);
+        }
+        else {
+            $query = $query->orderBy(['order' => SORT_ASC]);
         }
 
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);

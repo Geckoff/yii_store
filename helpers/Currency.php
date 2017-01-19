@@ -3,8 +3,46 @@
 namespace app\helpers;
 
 use Yii;
+use yii\base\Object;
 
-class Currency {
+class Currency extends Object  {
+
+    private $rate_euros;
+    private $rate_pounds;
+    private $rate_dollars = 1;
+
+    public function init() {
+        $this->rate_euros = self::getRate('EUR');
+        $this->rate_pounds = self::getRate('GBP');
+    }
+
+    public static function getRate($currency) {  // $currency - currency international acronym
+        $data = file_get_contents("http://api.fixer.io/latest?base=USD&symbols=".$currency);
+        $data = json_decode($data, true);
+        $rate = $data['rates'][$currency];
+        return $rate;
+    }
+
+    public function getCurencyRates() {
+        $currencies_rates = ['EUR' => $this->rate_euros, 'GBP' => $this->rate_pounds, 'USD' => $this->rate_dollars];
+        return $currencies_rates;
+    }
+
+    public function getCurrencyPrice($price, $currency) {
+        switch ($currency) {
+        case 'USD':
+            $rate = $this->rate_dollars;
+            break;
+        case 'EUR':
+            $rate = $this->rate_euros;
+            break;
+        case 'GBP':
+            $rate = $this->rate_pounds;
+            break;
+        }
+        $currency_price = round($price * $rate, 2);
+        return $currency_price;
+    }
 
     public static function getPrice($price, $sign = false, $qty = 1) {
         $currency_name = self::getBareCurrencyName($sign);

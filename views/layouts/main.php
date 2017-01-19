@@ -51,9 +51,9 @@ ltAppAsset::register($this);
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
                                 <?php $soc_nets = Parameters::getParam('soc_nets'); ?>
-								<li><a href="<?=$soc_nets['facebook'] ?>"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="<?=$soc_nets['twitter'] ?>"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="<?=$soc_nets['google_plus'] ?>"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="<?=$soc_nets['facebook']['value'] ?>"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="<?=$soc_nets['twitter']['value'] ?>"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="<?=$soc_nets['google_plus']['value'] ?>"><i class="fa fa-google-plus"></i></a></li>             
 							</ul>
 						</div>
 					</div>

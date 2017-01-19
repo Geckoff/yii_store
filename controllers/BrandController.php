@@ -17,7 +17,7 @@ class BrandController extends AppController {
         if (empty($brand)) {
             throw new \yii\web\HttpException(404, 'The requested Brand could not be found.');
         }
-        $query = Product::find()->where(['brand_id' => $brand->id]);
+        $query = Product::find()->where(['brand_id' => $brand->id])->andWhere(['active' => '1']);
 
         if (Yii::$app->request->get('min') && Yii::$app->request->get('max')) {      // price range parameters were enabled
             $gets['min'] = Yii::$app->request->get('min');
@@ -36,9 +36,10 @@ class BrandController extends AppController {
             if ($sort == 'rate') $query = $query->orderBy(['current_rating' => SORT_DESC]);
             $gets['sort'] = $sort;
         }
-        elseif (Yii::$app->request->get('min') && Yii::$app->request->get('max')) {
+        elseif (Yii::$app->request->get('min') || Yii::$app->request->get('max')) {
             $query = $query->orderBy(['price' => SORT_ASC]);
-        }
+        }  
+
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 

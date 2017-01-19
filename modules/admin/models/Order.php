@@ -42,7 +42,7 @@ class Order extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['qty'], 'integer'],
             [['sum'], 'number'],
-            [['status'], 'string'],
+            [['status', 'admin_note', 'note'], 'string'],
             [['name', 'email', 'phone', 'address'], 'string', 'max' => 255],
         ];
     }
@@ -53,7 +53,7 @@ class Order extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Order #',
+            'id' => 'Order#',
             'created_at' => 'Order Date',
             'updated_at' => 'Update Date',
             'qty' => 'Quantity',

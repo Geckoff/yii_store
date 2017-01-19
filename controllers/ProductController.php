@@ -8,14 +8,14 @@ use Yii;
 
 class ProductController extends AppController {
 
-    public function actionView($id) {
+    public function actionView($slug) {
 //        $id = Yii::$app->request->get('id');
-        $product = Product::findOne($id);  // lazy loading
+        $product = Product::find()->where(['slug' => $slug])->one();  // lazy loading
         if (empty($product)) {
             throw new \yii\web\HttpException(404, 'The requested Product could not be found.');
         }
 //        $product = Product::find()->with('category')->where(['id' => $id])->limit(1)->one();  // greedy loading
-        $hits = Product::find()->where(['hit' => '1'])->limit(6)->orderBy('rating')->all();
+        $hits = Product::find()->where(['category_id' => $product->category_id])->limit(6)->orderBy('rating')->all();
         $this->setMeta('E-SHOPEER | '.$product->name, $product->keywords, $product->description );
         return $this->render('view', compact('product', 'hits'));
     }

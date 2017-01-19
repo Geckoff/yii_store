@@ -37,9 +37,10 @@ class AppAsset extends AssetBundle
         'js/jquery.cookie.js',
         'js/jquery.accordion.js',
         'js/jquery.barrating.js',
+        'js/jquery.elevatezoom.js',
+        'js/jquery-ui.js',  
         'js/main.js',
         'js/main-admin.js',
-        'js/jquery.elevatezoom.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

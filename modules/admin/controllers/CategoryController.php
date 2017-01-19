@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\Category;
+use app\modules\admin\models\Product;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends AppAdminController
 {
     /**
      * @inheritdoc
@@ -23,7 +24,7 @@ class CategoryController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST', 'GET'],
                 ],
             ],
         ];
@@ -35,12 +36,19 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        $sort = Yii::$app->request->get('sort') ? Yii::$app->request->get('sort') : 'no-sort';
+        if ($q = Yii::$app->request->get('q')) {
+            $query = Category::find()->with('category')->where(['like', 'name', $q]);  // greedy select
+        }
+        else $query = Category::find()->with('category');  // greedy select
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Category::find()->with('category'),   // greedy select
+            'query' => $query,   // greedy select
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'sort' => $sort
         ]);
     }
 
@@ -65,9 +73,13 @@ class CategoryController extends Controller
     {
         $model = new Category();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', "Category {$model->name} is added"); 
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $max_order = Category::find()->where(['parent_id' => $model->parent_id])->max('`order`');
+            $order = $max_order ? $max_order + 1 : 1;
+            $model->order = $order;
+            $model->save();
+            Yii::$app->session->setFlash('success', "Category {$model->name} is added");
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -86,7 +98,8 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', "Category {$model->name} is updated.");
+            return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -102,9 +115,23 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Product::find()->where(['category_id' => $id])->all()){
+            Yii::$app->session->setFlash('error', "Category contains products and can not be deleted.");
+            return $this->redirect(Yii::$app->request->referrer);
+        }
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionDeleteCheck() {
+        $selection = Yii::$app->request->post('selection');
+        if (Product::find()->where(['in', 'id', $selection])->all()){
+            Yii::$app->session->setFlash('error', "Categories contain products and can not be deleted.");
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+        Category::deleteAll(['in', 'id', $selection]);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
@@ -121,5 +148,28 @@ class CategoryController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function returnModel() {
+        return Category::find();
+    }
+
+    /* Changing order of categories in menu */
+
+    public function actionMenuOrder() {
+        if (!Yii::$app->request->isAjax) return false;
+        $prim_id = Yii::$app->request->post('prim_id');
+        $prim_order = Yii::$app->request->post('prim_order');
+        $sec_id = Yii::$app->request->post('sec_id');
+        $sec_order = Yii::$app->request->post('sec_order');
+
+        $prim_model = $this->findModel($prim_id);
+        $sec_model = $this->findModel($sec_id);
+
+        $prim_model->order = $sec_order;
+        $sec_model->order = $prim_order;
+
+        if ($prim_model->save() && $sec_model->save()) return true;
+        else return false;
     }
 }

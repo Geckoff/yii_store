@@ -105,9 +105,9 @@ use app\helpers\Currency;
 										<div class="single-products">
 											<div class="productinfo text-center">
                                                 <?php $mainImg = $single_product->getImage();   ?>
-												<?= Html::img($mainImg->getUrl(), ['alt' => $single_product->name]) ?>
+												<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= Html::img($mainImg->getUrl(), ['alt' => $single_product->name]) ?></a>
 												<h2><?= Currency::getPrice($single_product['price'], true);?></h2>
-												<p><a href="<?=\yii\helpers\Url::to(['product/view', 'id' => $single_product->id]) ?>"><?= $single_product['name']  ?></a></p>
+												<p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= $single_product['name']  ?></a></p>
 												<a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $single_product->id]) ?>" data-id="<?= $single_product->id ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 

@@ -14,6 +14,8 @@ class MenuWidget extends Widget  {
     public $tree;       // setting of tree array
     public $menuHtml;
     public $id;
+    public $category_id;
+    public $category_add;
 
     public function init() {
         parent::init();
@@ -33,7 +35,7 @@ class MenuWidget extends Widget  {
         }*/
 
 
-        $this->data = Category::find()->indexBy('id')->asArray()->all();    // indexBy() - what field is used for array indexing
+        $this->data = Category::find()->indexBy('id')->asArray()->orderBy(['order' => SORT_ASC])->all();    // indexBy() - what field is used for array indexing
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
         //set cache
@@ -63,13 +65,14 @@ class MenuWidget extends Widget  {
             $str .= $this->catToTemplate($category, $tab);
         }
         $insert_id = is_array($this->id) ? $this->id['category_id'] : $this->id;
-        $str .= '<div id="add-active" data-id="'.$insert_id.'"></div>';
+        if ($this->tpl !== 'order.php') $str .= '<div id="add-active" data-id="'.$insert_id.'"></div>';
         return $str;
     }
 
     protected function catToTemplate($category, $tab) {
         //ob_start();
-        include __DIR__.'/menu_tpl/'.$this->tpl;
+        if ($category['active']) include __DIR__.'/menu_tpl/'.$this->tpl;
+
         //return ob_get_clean();
     }
 }

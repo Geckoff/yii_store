@@ -33,6 +33,10 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
             'mihaildev\\elfinder\\' => 19,
             'mihaildev\\ckeditor\\' => 19,
         ),
+        'd' => 
+        array (
+            'dosamigos\\transliterator\\' => 25,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -91,6 +95,10 @@ class ComposerStaticInitbdaf12140672877f6a6d9bc52daf6188
         'mihaildev\\ckeditor\\' => 
         array (
             0 => __DIR__ . '/..' . '/mihaildev/yii2-ckeditor',
+        ),
+        'dosamigos\\transliterator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-transliterator-helper',
         ),
         'cebe\\markdown\\' => 
         array (

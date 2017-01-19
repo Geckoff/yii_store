@@ -24,13 +24,21 @@ class Product extends \yii\db\ActiveRecord
 
     public $image;
     public $gallery;
+    public $euros;
+    public $pounds;
 
     public function behaviors()
     {
         return [
             'image' => [
                 'class' => 'rico\yii2images\behaviors\ImageBehave',
-            ]
+            ],
+            'slug' => [
+    			'class' => 'app\behaviors\Slug',
+    			'in_attribute' => 'name',
+    			'out_attribute' => 'slug',
+    			'translit' => true
+    		]
         ];
     }
 
@@ -46,20 +54,24 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
+    public function getBrand() {
+        return $this->hasOne(Brand::className(), ['id' => 'brand_id']);
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['category_id', 'name'], 'required'],
-            [['category_id', 'rating','voters'], 'integer'],
-            [['current_rating'], 'float'],
+            [['category_id', 'name', 'slug', 'price'], 'required'],
+            [['category_id', 'brand_id', 'rating','voters', 'active'], 'integer'],
+            [['current_rating'], 'number', 'min' => 0,'max' => 5],
             [['content', 'hit', 'new', 'sale'], 'string'],
-            [['price'], 'number'],
-            [['name', 'keywords', 'description', 'img'], 'string', 'max' => 255],
+            [['price', 'order'], 'number'],
+            [['name', 'keywords', 'description', 'img', 'slug'], 'string', 'max' => 255],
             [['image'], 'file', 'extensions' => 'png, jpg'],
-            [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4]
+            [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 10]
         ];
     }
 
@@ -71,15 +83,19 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'Product ID',
             'category_id' => 'Category',
+            'brand_id' => 'Brand',
             'name' => 'Name',
             'content' => 'Content',
             'price' => 'Price',
             'keywords' => 'Keywords',
             'description' => 'Description',
             'image' => 'Image',
-            'hit' => 'Popular',
+            'hit' => 'Hit',
             'new' => 'New',
             'sale' => 'Sale',
+            'rating' => "Overall Raiting",
+            'current_rating' => 'Average Rating',
+            'active' => 'Visible'
         ];
     }
 

@@ -281,13 +281,20 @@ $(document).ready(function(){
     cardRating();
 
 /*Adding active class to categoreies menu*/
+    setTimeout(menuMod, 1);
+    function menuMod() {
+        $('.category-products a').removeClass('active');
+        $('li.dcjq-parent-li ul').css('display', 'none');
+        $('.category-products a').each(function(indx, element){
+            //$('.category-products a').removeClass('active');
+            if ($(element).data('id') == $('#add-active').data('id')) {
+                $(element).addClass("active");
+                $(element).parent().parent().css('display', 'block');
+            }
+            if ($('#add-active').data('id') == 0) $('.category-products a').removeClass('active');
+        });
+    }
 
-    $('.category-products a').each(function(indx, element){
-        if ($(element).data('id') == $('#add-active').data('id')) {
-            $(element).addClass("active");
-        }
-        if ($('#add-active').data('id') == 0) $('.category-products a').removeClass('active');
-    });
 
 /* Item zoomer */
  $('#img_01').elevateZoom({ gallery:'gal1', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true });

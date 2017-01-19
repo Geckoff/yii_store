@@ -58,10 +58,10 @@ class Order extends ActiveRecord
             [['name', 'email', 'phone', 'address'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['qty'], 'integer'],
-            [['sum'], 'number'],
-            [['status'], 'boolean'],
+            [['sum'], 'number'],     
             [['name', 'email', 'phone', 'address'], 'string', 'max' => 255],
             [['currency'], 'string', 'max' => 5],
+            [['admin_note', 'note', 'status'], 'string']
         ];
     }
 

@@ -12,37 +12,73 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <div class="pull-right">
+        <?=Html::beginForm(['/admin/order/index'],'get');?>
+            <input class="form-control search-admin" type="text" placeholder="Search" name='q'/>
+            <?=Html::submitButton('Search', ['class' => 'btn btn-info',]);?>
+        <?= Html::endForm();?>
+    </div>
+
+    <?=Html::beginForm(['/admin/order/delete-check'], 'post', ['id' => 'grid-form']);?>
 
     <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+        <div id='sort-name' data-name="<?=$sort ?>"></div>
+        <?=Html::submitButton('Delete Checked Orders', ['class' => 'btn btn-danger disabled', 'disabled' => 'disabled', 'id' => 'del-checked']);?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'contentOptions' => ['class' => 'check-column'],
+            ],
 
-            'id',
+            [
+                 'attribute' => 'id',
+                 'contentOptions' => ['class' => 'id-column'],
+                 'headerOptions' => ['class' => 'check-column'],
+            ],
+            //'name',
+            [
+                'attribute' => 'name',
+                'value' => function($data) {
+                    return '<p><a href="'.\yii\helpers\Url::to(['order/update', 'id' => $data->id]).'">'.$data->name.'</a></p>';
+                },
+                'format' => 'html',
+                'contentOptions' => ['class' => 'name-column']
+            ],
             'created_at',
             'updated_at',
             'qty',
-            'sum',
+            //'sum',
+            [
+                'attribute' => 'sum',
+                'value' => function($data) {
+                    return $data->currency.'&nbsp;'.$data->sum;
+                },
+                'format' => 'html',
+            ],
             [
                 'attribute' => 'status',
                 'value' => function($data) {      // $data - data from ActiveDataProvider;
-                    return !$data->status ? '<span class="text-danger">Active</span>' : '<span class="text-success  ">Completed</span>';
+                    if ($data->status == 0) { $class = 'text-danger new-admin-order'; $title = 'New'; }
+                    if ($data->status == 1) { $class = 'text-warning'; $title = 'Active'; }
+                    if ($data->status == 2) { $class = 'text-success'; $title = 'Completed'; }
+                    return '<span class="'.$class.'">'.$title.'</span>';
                 },
                 'format' => 'html'
             ],
-            //'status',
-            // 'name',
-            // 'email:email',
-            // 'phone',
-            // 'address',
 
-            /*['class' => 'yii\grid\ActionColumn'],   */
-             [
-                'class' => 'yii\grid\CheckboxColumn',
+            [
+                'value' => function($data){
+                    return '<a class="delete-product" href="'.\yii\helpers\Url::to(['order/delete', 'id' => $data->id]).'"><i class="fa fa-trash-o" aria-hidden="true"></i>';
+                },
+                'format' => 'html',
+                'contentOptions' => ['class' => 'delete-column text-center id-column'],
+                'headerOptions' => ['class' => 'id-column'],
             ],
+
         ],
     ]); ?>
+    <?= Html::endForm();?>
 </div>

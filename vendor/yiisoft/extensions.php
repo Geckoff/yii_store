@@ -93,4 +93,13 @@ return array (
       '@rico/yii2images' => $vendorDir . '/costa-rico/yii2-images',
     ),
   ),
+  '2amigos/yii2-transliterator-helper' => 
+  array (
+    'name' => '2amigos/yii2-transliterator-helper',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@dosamigos/transliterator' => $vendorDir . '/2amigos/yii2-transliterator-helper',
+    ),
+  ),
 );

@@ -12,10 +12,12 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="order-update">
 
-    <h1>Update Order #<?= $model->id ?></h1>
+    <h1>Order #<?= $model->id ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'products' => $products,
+        'currency' => $currency,
     ]) ?>
 
 </div>
