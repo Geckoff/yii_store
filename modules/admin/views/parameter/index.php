@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-
+$this->title = 'Options'; 
 ?>
 <h1>Options</h1>
 

@@ -396,5 +396,146 @@ $(document).ready(function(){
         });
     });
 
+    /* Update single slide */
+
+    $('.graph-mat-container').on('click', '.graph-update-item', function(e){
+        e.preventDefault();
+        var initButton = $(this);
+
+        var imgInput = $(this).parent().parent().find("input#graphic-img");
+        var linkInput = $(this).parent().parent().find("input#graphic-link");
+        var idInput = $(this).parent().parent().find("input[name=id]");
+        var csrfInput = $(this).parent().parent().find("input[name=_csrf]");
+        var fd = new FormData();
+
+        fd.append('Graphic[img]', imgInput.prop('files')[0]);
+        fd.append('Graphic[link]', linkInput.val());
+        fd.append('id', idInput.val());
+        fd.append('_csrf', csrfInput.val());
+
+        if (idInput.val() == '0') {
+            var url = '/admin/graphic/new-slide';
+            var galId = $(this).parent().parent().parent().parent().parent().data('id');
+            fd.append('gallery_id', galId);
+        }
+        else var url = '/admin/graphic/update-slide';
+
+        $.ajax({
+            url: url,
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                if (idInput.val() == 0) {
+                    initButton.removeClass('btn-success');
+                    initButton.addClass('btn-primary');
+                    initButton.text('Update');
+                    initButton.parent().next().after('<button data-id="' + data + '" type="button" class="btn btn-danger delete-slide">Delete Slide</button>');
+                    initButton.parent().parent().find('input[name=id]').val(data);
+
+                    setTimeout(function(){ initButton.parent().parent().find('.image-success-notice').text('Slide was saved'); }, 1000);
+                }
+                var successText = initButton.parent().parent().parent().find('.image-success-notice');
+                successText.fadeIn();
+                setTimeout(function(){successText.fadeOut();}, 1500);
+            }
+        });
+    });
+
+    /* changing baner/slide image */
+    $('.graph-mat-container').on('change', '.graphic-mat-img-btn', function() {
+        var curBut = $(this);
+        var input = $(this)[0];
+        if (input.files && input.files[0]) {
+            if (input.files[0].type.match('image.*')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    curBut.parent().parent().find('.graphic-mat-img-disp img').attr('src', e.target.result).attr('height', '200');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                console.log('not an image');
+            }
+        } else {
+            console.log('houston we\'ve got a problem');
+        }
+    });
+
+    /* Deleting slide */
+
+    $('.graph-mat-container').on('click', '.delete-slide', function(){
+        var id = $(this).data('id');
+        var delBut = $(this);
+        delBut.parent().parent().fadeOut(200);
+        setTimeout(function(){delBut.parent().parent().remove();}, 250);
+        delBut.parent().parent().next().fadeOut(200);
+        setTimeout(function(){delBut.parent().parent().next().remove();}, 250);
+        delBut.parent().parent().next().next().fadeOut(200);
+        setTimeout(function(){delBut.parent().parent().next().next().remove();}, 250);
+
+        setTimeout(function(){
+            $('.grahic-gallery-slide-block').each(function(indx, elem){
+                console.log(indx);
+                var num = indx + 1;
+                console.log($(this).find('.slide-number'));
+                $(this).find('.slide-number').text('Slide ' + num);
+            });
+        }, 350);
+
+
+        $.ajax({
+            url: '/admin/graphic/delete',
+            data: {id: id},
+            type: 'POST',
+            success: function(res) {
+            },
+            error: function() {
+                alert('error!');
+                return false;
+            }
+        });
+    });
+
+    /* Adding new slide to gallery */
+    $('.graph-mat-container').on('click', '.add-slide-btn', function(){
+        //alert('asd');
+        var csrf = $('meta[name = csrf-token]').attr('content');
+        slideNumber = $('.grahic-gallery-slide-block').length + 1;
+        var html = '<div class="grahic-gallery-slide-block">\
+                        <form id="w3" action="/admin/graphic/update" method="post" enctype="multipart/form-data">\
+                            <input type="hidden" name="_csrf" value="' + csrf + '">\
+                            <p class="slide-number">Slide ' + slideNumber + '</p>\
+                            <div class="form-group field-graphic-link">\
+                                <label class="control-label" for="graphic-link">Link</label>\
+                                <input type="text" id="graphic-link" class="form-control" name="Graphic[link]" value="" maxlength="255">\
+                                <div class="help-block"></div>\
+                            </div>\
+                            <input type="hidden" name="id" value="0">\
+                            <div class="graphic-mat-img-disp">\
+                                <img src="/yii2images/images/image-by-item-and-alias?item=&amp;dirtyAlias=placeHolder_200x.png" alt="">\
+                            </div>\
+                            <div class="form-group gallery-submit-group">\
+                                <button type="submit" class="btn btn-success slide-submit graph-update-item">Save Slide</button>\
+                            </div>\
+                            <div class="form-group field-graphic-img">\
+                                <input type="hidden" name="Graphic[img]" value="">\
+                                <input type="file" id="graphic-img" class="graphic-mat-img-btn" name="Graphic[img]">\
+                                <div class="help-block"></div>\
+                            </div>\
+                            <div class="clearfix"></div>\
+                            <div class="image-success-notice-block">\
+                                <p class="text-success image-success-notice">Slide was created</p>\
+                            </div>\
+                        </form>\
+                    </div>\
+                    <div class="clearfix"></div>\
+                    <hr>';
+        $(this).parent().find('.grahic-gallery-block-slides').append(html);
+
+    });
+
+
 
 });

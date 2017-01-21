@@ -8,6 +8,23 @@ $('.catalog').dcAccordion({
     speed: 300
 });
 
+if ($('div').is('#slider-range')) {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: $('.price-range .pull-left').text() * 1,
+      max: $('.price-range .pull-right').text() * 1,
+      values: $('.price-range input').data('slider-value'),
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - " + $( "#slider-range" ).slider( "values", 1 ) );
+
+    $( "#slider-range" ).on( "slidestop", function( event, ui ) {
+
+    } );
+}
 
 
 /*cart operations */
@@ -151,12 +168,13 @@ $(document).ready(function(){
         ajaxFilter(minVal, maxVal, sort);
     });
 
-    $('#sl2').on('slideStop', function(ev){
+    $( "#slider-range" ).on( "slidestop", function( event, ui ){
 
-        val = $(this).slider('getValue');
-        minmax = val['context']['value'].split(',');
-        min = minmax[0];
-        max = minmax[1];
+        //val = $(this).slider('getValue');
+
+        //minmax = val['context']['value'].split(',');
+        min = ui.values[0];
+        max = ui.values[1];
         sort = $('#sort-val').data('val');
         ajaxFilter(min, max, sort);
     });

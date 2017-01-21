@@ -17,7 +17,7 @@ class GraphicController extends \yii\web\Controller
     public function actionUpdate()
     {
         if ($id = Yii::$app->request->post('id')){
-            //debug(Yii::$app->request->post());
+            debug(Yii::$app->request->post());
             $model = Graphic::findOne($id);
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 $model->img = UploadedFile::getInstance($model, 'img');
@@ -26,6 +26,7 @@ class GraphicController extends \yii\web\Controller
                 }
                 unset($model->img);
             }
+            return $this->refresh();
         }
         else {
             $banners = Graphic::find()->where(['gallery' => '0'])->all();
@@ -37,6 +38,50 @@ class GraphicController extends \yii\web\Controller
                 'gallery_items' => $gallery_items,
                 'galleries_names' => $galleries_names,
             ]);
+        }
+    }
+
+    public function actionUpdateSlide() {
+        if (Yii::$app->request->isAjax) {
+            if ($id = Yii::$app->request->post('id')){
+                $model = Graphic::findOne($id);
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    $model->img = UploadedFile::getInstance($model, 'img');
+                    if ($model->img) {
+                        $model->upload();
+                    }
+                    unset($model->img);
+                }
+                echo 'suc';
+            }
+        }
+    }
+
+    public function actionNewSlide() {
+        if (Yii::$app->request->isAjax) {
+            if (Yii::$app->request->post()){
+                $model = new Graphic();
+                if ($model->load(Yii::$app->request->post())) {
+                    $model->gallery = 1;
+                    $model->gallery_id = Yii::$app->request->post('gallery_id');
+                    $model->save();
+                    $model->img = UploadedFile::getInstance($model, 'img');
+                    if ($model->img) {
+                        $model->upload();
+                    }
+                    unset($model->img);
+                }
+                echo $model->id;
+            }
+        }
+    }
+
+    public function actionDelete() {
+        if (Yii::$app->request->isAjax) {
+            if (Yii::$app->request->post()){
+                $id = Yii::$app->request->post('id');
+                Graphic::findOne($id)->delete();
+            }
         }
     }
 

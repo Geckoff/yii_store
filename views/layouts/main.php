@@ -29,7 +29,7 @@ ltAppAsset::register($this);
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">              
 </head><!--/head-->
 
 <body>
@@ -53,7 +53,7 @@ ltAppAsset::register($this);
                                 <?php $soc_nets = Parameters::getParam('soc_nets'); ?>
                                 <li><a href="<?=$soc_nets['facebook']['value'] ?>"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="<?=$soc_nets['twitter']['value'] ?>"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="<?=$soc_nets['google_plus']['value'] ?>"><i class="fa fa-google-plus"></i></a></li>             
+								<li><a href="<?=$soc_nets['google_plus']['value'] ?>"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>
 					</div>

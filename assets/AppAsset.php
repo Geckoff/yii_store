@@ -24,21 +24,26 @@ class AppAsset extends AssetBundle
         'css/prettyPhoto.css',
         'css/price-range.css',
         'css/animate.css',
+        'css/jquery-ui-style.css',
     	'css/responsive.css',
         'http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
-        'css/main.css'
+        'css/main.css',
+        'css/admin.css',
     ];
     public $js = [
         /*'js/jquery.js',
     	'js/bootstrap.min.js',*/
     	'js/jquery.scrollUp.min.js',
+    	//'js/modernizr.js',
     	'js/price-range.js',
+    	//'js/bootstrap-slider.js',
         'js/jquery.prettyPhoto.js',
         'js/jquery.cookie.js',
         'js/jquery.accordion.js',
         'js/jquery.barrating.js',
         'js/jquery.elevatezoom.js',
-        'js/jquery-ui.js',  
+        'js/jquery-ui.js',
+        //'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
         'js/main.js',
         'js/main-admin.js',
     ];
