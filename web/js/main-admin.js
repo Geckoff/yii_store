@@ -517,7 +517,7 @@ $(document).ready(function(){
                                 <img src="/yii2images/images/image-by-item-and-alias?item=&amp;dirtyAlias=placeHolder_200x.png" alt="">\
                             </div>\
                             <div class="form-group gallery-submit-group">\
-                                <button type="submit" class="btn btn-success slide-submit graph-update-item">Save Slide</button>\
+                                <button type="submit" class="btn btn-success slide-submit graph-update-item">Add Slide</button>\
                             </div>\
                             <div class="form-group field-graphic-img">\
                                 <input type="hidden" name="Graphic[img]" value="">\

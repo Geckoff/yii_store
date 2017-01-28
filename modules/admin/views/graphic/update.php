@@ -56,7 +56,7 @@ $this->title = 'Graphic Materials';
 
                         <p class="slide-number">Slide <?=$i?></p>
 
-                        <?= $form->field($banner, 'link')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($gallery_item, 'link')->textInput(['maxlength' => true]) ?>
                         <?= Html::hiddenInput ('id', $gallery_item->id) ?>
                         <?php $mainImg = $gallery_item->getImage();  ?>
                         <div class="graphic-mat-img-disp">

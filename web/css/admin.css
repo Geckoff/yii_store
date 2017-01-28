@@ -270,6 +270,10 @@
     font-size: 15px;
 }
 
+span.checked-orders {
+    margin-left: 0;
+}
+
 .admin-order-sum .secondary-prices  {
     font-size: 20px;
 }
@@ -314,6 +318,11 @@
 
 .client-data-block {
     margin-top: 20px;
+}
+
+.client-data-block > .form-group {
+    width: 50%;
+    float: left;
 }
 
 .client-data-block label {
@@ -570,4 +579,64 @@ input#graphic-link {
 
 .single-banner-block .graphic-mat-img-disp img {
     margin-bottom: 10px;
+}
+
+/* header */
+
+.admin-header {
+    background-color: #3B3B3B;
+}
+
+.admin-header .header-bottom {
+ padding: 0;
+}
+
+.admin-mainmenu{
+    width: 100%;
+}
+
+.admin-mainmenu li {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-left: 1px solid #4A4A4A;
+    border-right: 1px solid #292929;
+}
+
+.admin-mainmenu li:first-of-type {
+    border-left: none;
+}
+
+.admin-mainmenu li:last-of-type {
+    border: none;
+}
+.admin-mainmenu li:nth-last-child(2) {
+    border-right: none;
+}
+
+.admin-dash .admin-mainmenu li a {
+    padding: 0 25px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.admin-dash .admin-mainmenu li:first-of-type a {
+    padding-left: 0;
+}
+
+.admin-dash .admin-mainmenu li a.active {
+    color: #FF861B;
+}
+
+.admin-mainmenu.nav > li > a:hover, .admin-mainmenu.nav > li > a:focus {
+    background-color: transparent;
+    color: #FF861B;
+}
+
+.admin-mainmenu.nav > li:last-of-type > a:hover, .admin-mainmenu.nav > li:last-of-type > a:focus {
+    background-color: transparent;
+    color: #FF3623;
+}
+
+.navbar-nav > li.admin-logout {
+    float: right;
 }

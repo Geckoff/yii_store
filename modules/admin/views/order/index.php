@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=Html::beginForm(['/admin/order/delete-check'], 'post', ['id' => 'grid-form']);?>
 
     <p>
-        <div id='sort-name' data-name="<?=$sort ?>"></div>
-        <?=Html::submitButton('Delete Checked Orders', ['class' => 'btn btn-danger disabled', 'disabled' => 'disabled', 'id' => 'del-checked']);?>
+        <span class="checked-orders checked-title">Checked Items:</span>
+        <?=Html::button('<i class="fa fa-trash-o"></i>', ['class' => 'admin-checked-btn btn btn-danger disabled', 'disabled' => 'disabled', 'id' => 'del-checked', 'data-action' => 'delete-check']);?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

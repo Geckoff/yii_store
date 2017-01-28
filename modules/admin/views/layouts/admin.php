@@ -34,15 +34,11 @@ ltAppAsset::register($this);
 
 <body class="admin-dash">
 <?php $this->beginBody() ?>
-	<header id="header"><!--header-->
-
-
-
-
+	<header class="admin-header"><!--header-->
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-9">
+					<div class="col-sm-12">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -51,34 +47,16 @@ ltAppAsset::register($this);
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="<?= Url::to(['/admin'])  ?>" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Categories<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="<?= Url::to(['category/index'])  ?>">Category List</a></li>
-										<li><a href="<?= Url::to(['category/create'])  ?>">Add Cateory</a></li>
-                                    </ul>
-                                </li>
-								<li class="dropdown"><a href="#">Products<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="<?= Url::to(['product/index'])  ?>">Product List</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="<?= Url::to(['brand/index'])  ?>" class="active">Brands</a></li>
-                                <li><a href="<?= Url::to(['post/index'])  ?>" class="active">Posts</a></li>
-                                <li><a href="<?= Url::to(['parameter/index'])  ?>" class="active">Options</a></li>
-                                <li><a href="<?= Url::to(['graphic/update'])  ?>" class="active">Graphic Materials</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-                            <form method="get" action="<?= \yii\helpers\Url::to(['category/search']) ?>">
-                                <input type="text" placeholder="Search" name='q'/>
-                            </form>
-						</div>
-					</div>
+            			<ul class="admin-mainmenu nav navbar-nav collapse navbar-collapse">
+            				<li><a href="<?= Url::to(['/admin'])  ?>" <?php if (Yii::$app->controller->id == 'order') echo 'class="active"'?>>Orders</a></li>
+                                <li><a href="<?= Url::to(['category/index'])  ?>" <?php if (Yii::$app->controller->id == 'category') echo 'class="active"'?>>Categories</a></li>
+                                <li><a href="<?= Url::to(['product/index'])  ?>" <?php if (Yii::$app->controller->id == 'product') echo 'class="active"'?>>Products</a></li>
+                                <li><a href="<?= Url::to(['brand/index'])  ?>" <?php if (Yii::$app->controller->id == 'brand') echo 'class="active"'?>>Brands</a></li>
+                                <li><a href="<?= Url::to(['post/index'])  ?>" <?php if (Yii::$app->controller->id == 'post') echo 'class="active"'?>>Posts</a></li>
+                                <li><a href="<?= Url::to(['parameter/index'])  ?>" <?php if (Yii::$app->controller->id == 'parameter') echo 'class="active"'?>>Options</a></li>
+                                <li><a href="<?= Url::to(['graphic/update'])  ?>" <?php if (Yii::$app->controller->id == 'graphic') echo 'class="active"'?>>Graphic Materials</a></li>
+                                <li class="admin-logout"><a href="<?= Url::to(['graphic/update'])  ?>"><i class="fa fa-power-off" aria-hidden="true"></i> Log Out</a></li>
+            			</ul>
 				</div>
 			</div>
 		</div><!--/header-bottom-->
@@ -102,8 +80,14 @@ ltAppAsset::register($this);
 	    <?=$content ?>
     </div>
 
-	<footer id="footer"><!--Footer-->
+	<footer id="admin-footer"><!--Footer-->
+        <div class="copyright">
+            <p>Project Factory &copy; 2013 - <?php echo date("Y"); ?></p>
+        </div>
 
+        <div class="logo">
+            <?= Html::img('@web/upload/store/no-image.png', ['alt'=>'some', 'class'=>'thing']);?> 
+        </div>
 
 	</footer><!--/Footer-->
 <?php $this->endBody() ?>

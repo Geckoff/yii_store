@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\assets\PostAsset;
+PostAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -121,4 +123,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!-- /.modal -->                                                                                       
