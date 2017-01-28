@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
-    <h1><?= Html::encode($this->title) ?><?php if ($category_page) echo '&nbsp;<span style="color: #ccc">('.$category_page.')</span>'?></h1>
+    <h1><?= Html::encode($this->title) ?><?php if ($category_page) echo '&nbsp;<span class="have-selected-cat" style="color: #ccc">('.$category_page.')</span>'?></h1>
     <div class="pull-right">
         <?=Html::beginForm(['/admin/product/index'],'get');?>
             <input class="form-control search-admin" type="text" placeholder="Search" name='q'/>
-            <?=Html::submitButton('Search', ['class' => 'btn btn-info',]);?>
+            <?=Html::submitButton('<i class="fa fa-search admin-search-icon" aria-hidden="true"></i> <span class="admin-search-text">Search</span>', ['class' => 'btn btn-info',]);?>
         <?= Html::endForm();?>
     </div>
     <?=Html::beginForm(['/admin/product'], 'post', ['id' => 'grid-form']);?>

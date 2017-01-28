@@ -9,16 +9,19 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
-?>                                                           
-<div class="site-login container">
-    <h1><?= Html::encode($this->title) ?></h1>
+?>
+<div class="site-login-table">
+<div class="site-login">
+<div class="site-login-inner">
+
+    <?= Html::img('@web/images/home/fpro-login.png', ['alt'=>'fpro']);?>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
-        'options' => ['class' => 'form-horizontal'],
+        'options' => ['class' => 'form-horizontal admin-login-form'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-login-error\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-12 pull-left control-label'],
         ],
     ]); ?>
 
@@ -26,15 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+        <?= $form->field($model, 'rememberMe', ['options' => ['class' => 'form-group col-xs-9']])->checkbox([
+            'template' => "<div class=\"col-xs-12\">{input} {label}</div>\n",
         ]) ?>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+        <div class="form-group submit-group">
+            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
 
     <?php ActiveForm::end(); ?>
+</div>
+</div>
 </div>

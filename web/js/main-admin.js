@@ -498,6 +498,29 @@ $(document).ready(function(){
         });
     });
 
+    /* Hiding some of help blocks*/
+
+    if ($('input').is('#product-price')) {
+        ($('.field-product-price .help-block')).css('display', 'none');
+        ($('.field-product-rating .help-block')).css('display', 'none');
+        ($('.field-product-voters .help-block')).css('display', 'none');
+    }
+
+    /* Upload button style helper*/
+
+    if ($('input').is('.upd-upload-but')) {
+        $('input.upd-upload-but').wrap("<div class='upload-wrapper'></div>");
+        $('input.upd-upload-but').after("<div class='upload-fake-but'>Upload Image</div>");
+    }
+
+    /* Setting title for category select */
+
+    if ($('select').is('#product-category_id')) {
+        if (!$('span').is('.have-selected-cat')) {
+            $('select#product-category_id').prepend("<option disabled selected>Choose Category</li>");
+        }
+    }
+
     /* Adding new slide to gallery */
     $('.graph-mat-container').on('click', '.add-slide-btn', function(){
         //alert('asd');
@@ -521,7 +544,10 @@ $(document).ready(function(){
                             </div>\
                             <div class="form-group field-graphic-img">\
                                 <input type="hidden" name="Graphic[img]" value="">\
-                                <input type="file" id="graphic-img" class="graphic-mat-img-btn" name="Graphic[img]">\
+                                <div class="upload-wrapper">\
+                                    <input type="file" id="graphic-img" class="graphic-mat-img-btn upd-upload-but" name="Graphic[img]">\
+                                    <div class="upload-fake-but">Upload Image</div>\
+                                </div>\
                                 <div class="help-block"></div>\
                             </div>\
                             <div class="clearfix"></div>\

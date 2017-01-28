@@ -26,22 +26,10 @@ class MenuWidget extends Widget  {
     }
 
     public function run() {
-        // get cache
-        /*if ($this->tpl == 'menu.php'){        // pulling out menu from cache only for client's side
-            $menu = Yii::$app->cache->get('menu');
-            if ($menu) {
-                return $menu;
-            }
-        }*/
-
 
         $this->data = Category::find()->indexBy('id')->asArray()->orderBy(['order' => SORT_ASC])->all();    // indexBy() - what field is used for array indexing
         $this->tree = $this->getTree();
-        $this->menuHtml = $this->getMenuHtml($this->tree);
-        //set cache
-        /*if ($this->tpl == 'menu.php'){         // setting up menu to cache only for client's side
-            Yii::$app->cache->set('menu', $this->menuHtml, 60);
-        }*/
+        $this->menuHtml = $this->getMenuHtml($this->tree);        
         return $this->menuHtml;
     }
 

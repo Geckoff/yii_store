@@ -16,7 +16,7 @@ $this->title = 'Graphic Materials';
                 <?php $i++ ?>
                 <h4><?=$banner->name ?></h4>
 
-                <?= $form->field($banner, 'img')->fileInput(['class' => 'graphic-mat-img-btn'])->label(false) ?>
+                <?= $form->field($banner, 'img')->fileInput(['class' => 'graphic-mat-img-btn upd-upload-but'])->label(false) ?>
 
                 <?php $mainImg = $banner->getImage();  ?>
                 <div class="graphic-mat-img-disp">
@@ -66,7 +66,7 @@ $this->title = 'Graphic Materials';
                         <div class="form-group gallery-submit-group">
                             <?= Html::submitButton('Update', ['class' =>'btn btn-primary slide-submit graph-update-item']) ?>
                         </div>
-                        <?= $form->field($gallery_item, 'img')->fileInput(['class' => 'graphic-mat-img-btn'])->label(false) ?>
+                        <?= $form->field($gallery_item, 'img')->fileInput(['class' => 'graphic-mat-img-btn upd-upload-but'])->label(false) ?>
                         <?= Html::button('Delete Slide', ['class' =>'btn btn-danger delete-slide', 'data-id' => $gallery_item->id]) ?>
                         <div class="clearfix"></div>
                         <div class="image-success-notice-block">

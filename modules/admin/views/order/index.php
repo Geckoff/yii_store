@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="pull-right">
         <?=Html::beginForm(['/admin/order/index'],'get');?>
             <input class="form-control search-admin" type="text" placeholder="Search" name='q'/>
-            <?=Html::submitButton('Search', ['class' => 'btn btn-info',]);?>
+            <?=Html::submitButton('<i class="fa fa-search admin-search-icon" aria-hidden="true"></i> <span class="admin-search-text">Search</span>', ['class' => 'btn btn-info',]);?>
         <?= Html::endForm();?>
     </div>
 

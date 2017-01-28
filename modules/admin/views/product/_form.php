@@ -67,14 +67,14 @@ mihaildev\elfinder\Assets::noConflict($this);
 
     <?= $form->field($model, 'description')->textArea(['rows' => '4'])->label('Meta Description') ?>
 
-    <?= $form->field($model, 'image')->fileInput()->label('Main Image') ?>
+    <?= $form->field($model, 'image')->fileInput(['class' => 'upd-upload-but'])->label('Main Image') ?>
     <?php $mainImg = $model->getImage();  ?>
     <div class="main-img-update">
         <?= Html::img($mainImg->getUrl('200x200')) ?>
     </div>
 
 
-    <?= $form->field($model, 'gallery[]')->fileInput(['multiple' => true, 'accept' => 'image/*', 'id' => 'gallery-input']) ?>
+    <?= $form->field($model, 'gallery[]')->fileInput(['multiple' => true, 'accept' => 'image/*', 'id' => 'gallery-input', 'class' => 'upd-upload-but']) ?>
 
     <?php if (!$model->isNewRecord): ?>
         <?php $gallery = $model->getImages();  ?>

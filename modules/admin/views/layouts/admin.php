@@ -33,21 +33,15 @@ ltAppAsset::register($this);
 </head><!--/head-->
 
 <body class="admin-dash">
+<div class="wrapper">
 <?php $this->beginBody() ?>
+    <div class="content">
 	<header class="admin-header"><!--header-->
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div>
-            			<ul class="admin-mainmenu nav navbar-nav collapse navbar-collapse">
+            			<ul class="admin-mainmenu">
             				<li><a href="<?= Url::to(['/admin'])  ?>" <?php if (Yii::$app->controller->id == 'order') echo 'class="active"'?>>Orders</a></li>
                                 <li><a href="<?= Url::to(['category/index'])  ?>" <?php if (Yii::$app->controller->id == 'category') echo 'class="active"'?>>Categories</a></li>
                                 <li><a href="<?= Url::to(['product/index'])  ?>" <?php if (Yii::$app->controller->id == 'product') echo 'class="active"'?>>Products</a></li>
@@ -55,7 +49,7 @@ ltAppAsset::register($this);
                                 <li><a href="<?= Url::to(['post/index'])  ?>" <?php if (Yii::$app->controller->id == 'post') echo 'class="active"'?>>Posts</a></li>
                                 <li><a href="<?= Url::to(['parameter/index'])  ?>" <?php if (Yii::$app->controller->id == 'parameter') echo 'class="active"'?>>Options</a></li>
                                 <li><a href="<?= Url::to(['graphic/update'])  ?>" <?php if (Yii::$app->controller->id == 'graphic') echo 'class="active"'?>>Graphic Materials</a></li>
-                                <li class="admin-logout"><a href="<?= Url::to(['graphic/update'])  ?>"><i class="fa fa-power-off" aria-hidden="true"></i> Log Out</a></li>
+                                <li class="admin-logout"><a href="<?= Url::to(['/site/logout'])  ?>"><i class="fa fa-power-off" aria-hidden="true"></i> <span class="logout-text">Log Out</span></a></li>
             			</ul>
 				</div>
 			</div>
@@ -79,18 +73,25 @@ ltAppAsset::register($this);
         <?php endif; ?>
 	    <?=$content ?>
     </div>
+    </div>
 
 	<footer id="admin-footer"><!--Footer-->
-        <div class="copyright">
-            <p>Project Factory &copy; 2013 - <?php echo date("Y"); ?></p>
-        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="copyright">
+                        <p>Projects Factory &copy; 2013 - <?php echo date("Y"); ?></p>
+                    </div>
 
-        <div class="logo">
-            <?= Html::img('@web/upload/store/no-image.png', ['alt'=>'some', 'class'=>'thing']);?> 
+                    <div class="logo">
+                        <?= Html::img('@web/images/home/fpro.png', ['alt'=>'fpro']);?>
+                    </div>
+                </div>
+            </div>
         </div>
-
 	</footer><!--/Footer-->
 <?php $this->endBody() ?>
+</div>
 </body>
 </html>
 <?php $this->endPage() ?>

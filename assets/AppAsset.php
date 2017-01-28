@@ -33,7 +33,6 @@ class AppAsset extends AssetBundle
     public $js = [
         /*'js/jquery.js',
     	'js/bootstrap.min.js',*/
-    	'js/jquery.scrollUp.min.js',
     	//'js/modernizr.js',
     	'js/price-range.js',
     	//'js/bootstrap-slider.js',
@@ -44,7 +43,7 @@ class AppAsset extends AssetBundle
         'js/jquery.elevatezoom.js',
         'js/jquery-ui.js',
         //'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-        'js/main.js',
+        //'js/main.js',
         'js/main-admin.js',
     ];
     public $depends = [

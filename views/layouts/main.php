@@ -8,10 +8,12 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\assets\ClientAsset;
 use app\assets\ltAppAsset;
 use app\components\Parameters;
 
 AppAsset::register($this);
+ClientAsset::register($this);
 ltAppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
