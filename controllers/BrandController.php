@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Brand;
 use app\models\Product;
+use app\models\Graphic;
 use app\helpers\Currency;
 use Yii;
 use yii\data\Pagination;
@@ -46,11 +47,12 @@ class BrandController extends AppController {
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
         $this->setMeta('E-SHOPEER | '.$brand->name, $brand->keywords, $brand->description );
-        if ($ajax = Yii::$app->request->isAjax) {          // Price Range slider was used for filtering   
+        if ($ajax = Yii::$app->request->isAjax) {          // Price Range slider was used for filtering
             $this->layout = false;
             return $this->render('range', compact('products', 'pages', 'brand', 'gets'));
         }
-        return $this->render('view', compact('products', 'pages', 'brand', 'gets'));
+        $banner = Graphic::findOne(7);
+        return $this->render('view', compact('products', 'pages', 'brand', 'gets', 'banner'));
     }
 
 }

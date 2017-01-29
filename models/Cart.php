@@ -15,6 +15,7 @@ class Cart extends ActiveRecord {
         ];
     }
 
+    /* Saving added item into session */
     public function addToCart($product, $qty = 1) {
         $mainImg = $product->getImage();
 
@@ -33,6 +34,7 @@ class Cart extends ActiveRecord {
         $_SESSION['cart.sum'] = isset($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $qty * $product->price : $qty * $product->price;   // common proce of products in the cart
     }
 
+    /* Recalculating cart contetns and sum */
     public function recalc($id) {
         if (!isset($_SESSION['cart'][$id])) return false;
         $qtyMinus = $_SESSION['cart'][$id]['qty'];

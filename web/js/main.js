@@ -1,13 +1,10 @@
-
-
-
-/*price range*/
-$('#sl2').slider();
+//$('#sl2').slider();
 
 $('.catalog').dcAccordion({
     speed: 300
 });
 
+/*price range widget*/
 if ($('div').is('#slider-range')) {
     $( "#slider-range" ).slider({
       range: true,
@@ -28,26 +25,30 @@ if ($('div').is('#slider-range')) {
 
 
 /*cart operations */
-
+/*delete all the items from cart*/
 function clearCart() {
     ajaxCart('/cart/clear');
 }
 
+/*displaying cart modal window*/
 function showCart(cart) {
 $('#cart .modal-body').html(cart);
 $('#cart').modal();
 }
 
+/*showing the cart*/
 function getCart() {
     ajaxCart('/cart/show');
     return false;
 }
 
+/*deleting item from cart*/
 $('#cart .modal-body').on('click', '.del-item', function(){
     var id = $(this).data('id');
     ajaxCart('/cart/del-item', {id: id});
 });
 
+/*adding item to cart*/
 $('.add-to-cart').on('click', function(e){
     e.preventDefault();
     var id = $(this).data('id');
@@ -55,6 +56,7 @@ $('.add-to-cart').on('click', function(e){
     ajaxCart('/cart/add', {id: id, qty: qty});
 });
 
+/*basic request to the cart controller*/
 function ajaxCart(url, data = '') {
     $.ajax({
         url: url,
@@ -70,6 +72,7 @@ function ajaxCart(url, data = '') {
     });
 }
 
+/*deleting item from cart while using is on checkout page*/
 $('#cart-view').on('click', '.del-item', function(){
     var id = $(this).data('id');
     var button = $(this);
@@ -210,8 +213,7 @@ $(document).ready(function(){
                 else {
                     window.location.href = "http://" + document.location.host + "/ajax/range" + "?min=" + min + "&max=" + max;
                 }
-            }
-            //data = {min: min, max: max, slug: slug, sort: sort};
+            }                                                        
             data.slug = slug;
         }
 
@@ -260,7 +262,7 @@ $(document).ready(function(){
     });
 
     /**
-    * Changing rating of the item on current page
+    * Displaying rating changes of the item on current page
     **/
     function getRating(id) {
         $.ajax({

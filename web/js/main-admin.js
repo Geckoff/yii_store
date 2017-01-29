@@ -85,13 +85,7 @@ $(document).ready(function(){
                     alert('asd');
                     delete files[i];
                 }
-                //console.log(files);
-                //return true;
-                /*console.log("Filename: " + files[i].name);
-                console.log("Type: " + files[i].type);
-                console.log("Size: " + files[i].size + " bytes");*/
             }
-            console.log(files);
             return true;
         }
         item_id = $(this).parent().parent().data('itemid');
@@ -293,7 +287,6 @@ $(document).ready(function(){
             data: {cur_order: cur_order, cat_id: cat_id, id: id, order: order},
             type: 'POST',
             success: function(res) {
-                //console.log(JSON.parse(res));
                 location.reload();
             },
             error: function() {
@@ -452,14 +445,14 @@ $(document).ready(function(){
             if (input.files[0].type.match('image.*')) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    curBut.parent().parent().find('.graphic-mat-img-disp img').attr('src', e.target.result).attr('height', '200');
+                    curBut.parent().parent().parent().find('.graphic-mat-img-disp img').attr('src', e.target.result).attr('height', '200');
                 }
                 reader.readAsDataURL(input.files[0]);
             } else {
-                console.log('not an image');
+                alert('not an image');
             }
         } else {
-            console.log('houston we\'ve got a problem');
+            alert('houston we\'ve got a problem');
         }
     });
 

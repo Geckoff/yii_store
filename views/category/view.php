@@ -7,7 +7,12 @@ use app\helpers\Currency;
 ?>
 <section id="advertisement">
 		<div class="container">
-			<img src="/images/shop/advertisement.jpg" alt="" />
+            <?php $img = $banner->getImage(); ?>
+			<?php if ($banner->link):?>
+                <a href="<?=$banner->link?>"><?= Html::img($img->getUrl('1410x')) ?></a>
+            <?php else: ?>
+                <?= Html::img($img->getUrl()) ?>
+            <?php endif; ?>
 		</div>
 	</section>
 

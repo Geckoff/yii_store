@@ -9,9 +9,11 @@ $product = $this->product;
 				<div class="single-products">
 					<div class="productinfo text-center">
                         <?php $mainImg = $product->getImage();  ?>
-						<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= Html::img($mainImg->getUrl(), ['alt' => $product->name]) ?></a>
+						<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= Html::img($mainImg->getUrl('255x255'), ['alt' => $product->name]) ?></a>
 						<h2><?= Currency::getPrice($product->price, true);?></h2>
-						<p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>
+                        <div class="item-product-name">
+                            <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>
+                        </div>
 						<a href="#" data-id="<?=$product->id ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 
 					</div>

@@ -131,7 +131,10 @@ class OrderController extends AppAdminController
                     $prim_currency_sign = $currency_info[0];
                 }
             }
-
+            /**
+            * Need to get entire dollar sum of the order from `order_item` table.
+            * Sum of the order in `order` table is saved in currency which was used by customer
+            **/
             if ($prim_currency !== 'USD') {
                 $usd_price = 0;
                 foreach ($model->orderItems as $order_item) {

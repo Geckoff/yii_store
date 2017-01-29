@@ -43,10 +43,11 @@ class ProductController extends AppAdminController
         $currencies_rates = $currency->getCurencyRates();
         $category_page = false;
         $order_param = 'id';
-        if ($q = Yii::$app->request->get('q')) {
+        if ($q = Yii::$app->request->get('q')) {               // Search enabled
+            /* Complicated query is used for displaying list of prices in different currnecies */
             $query = Product::find()->select(['{{product}}.*',  '([[price]] * '.$currencies_rates['EUR'].') AS euros', '([[price]] * '.$currencies_rates['GBP'].') AS pounds'])->where(['like', 'name', $q]);
         }
-        elseif ($cat_id = Yii::$app->request->get('catid')) {
+        elseif ($cat_id = Yii::$app->request->get('catid')) {  // Certain category was chosen
             $query = Product::find()->select(['{{product}}.*',  '([[price]] * '.$currencies_rates['EUR'].') AS euros', '([[price]] * '.$currencies_rates['GBP'].') AS pounds'])->where(['category_id' => $cat_id]);
             $category_page = Category::findOne($cat_id);
             $category_page = $category_page->name;
@@ -142,13 +143,11 @@ class ProductController extends AppAdminController
         if ($model->load(Yii::$app->request->post())) {
             $new_data = Yii::$app->request->post("Product");
             if ($cat_id !== $new_data['category_id']) {
-
-                $max_order = Product::find()->where(['category_id' => $new_data['category_id']])->max('`order`');
+                $max_order = Product::find()->where(['category_id' => $new_data['category_id']])->max('`order`'); // setting order for the item
                 $model->order = $max_order + 1;
             }
             $model->save();
             $model->image = UploadedFile::getInstance($model, 'image');
-            //debug($model->image);
             if ($model->image) {
                 $model->upload();
             }
@@ -185,6 +184,7 @@ class ProductController extends AppAdminController
         $this->redirect(Yii::$app->request->referrer); 
     }
 
+    /* Deleting gallery image */
     public function actionDeleteImage() {
         if (Yii::$app->request->isAjax) {
             $img_id = (int)Yii::$app->request->post('img_id');
@@ -197,8 +197,7 @@ class ProductController extends AppAdminController
             $test = [];
             foreach($gallery as $gal_img) {
 
-                if ($gal_img->id == $img_id) {
-                    //return json_encode([$gal_img->id]);
+                if ($gal_img->id == $img_id) {            
                     $model->removeImage($gal_img);
                     break;
                 }

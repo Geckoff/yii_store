@@ -20,7 +20,7 @@ $this->title = 'Graphic Materials';
 
                 <?php $mainImg = $banner->getImage();  ?>
                 <div class="graphic-mat-img-disp">
-                    <?= Html::img($mainImg->getUrl('200x')) ?>
+                    <?= Html::img($mainImg->getUrl('x200')) ?>
                 </div>
 
                 <?= $form->field($banner, 'link')->textInput(['maxlength' => true]) ?>
@@ -60,7 +60,7 @@ $this->title = 'Graphic Materials';
                         <?= Html::hiddenInput ('id', $gallery_item->id) ?>
                         <?php $mainImg = $gallery_item->getImage();  ?>
                         <div class="graphic-mat-img-disp">
-                            <?= Html::img($mainImg->getUrl('200x')) ?>
+                            <?= Html::img($mainImg->getUrl('x200')) ?>
                         </div>
 
                         <div class="form-group gallery-submit-group">

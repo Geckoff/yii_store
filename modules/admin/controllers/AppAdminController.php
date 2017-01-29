@@ -28,6 +28,7 @@ class AppAdminController extends Controller {
         $this->setCheckedVisibility($selection, 0);
     }
 
+    /* Visibility update for multiple items */
     protected function setCheckedVisibility($selection, $vis) {
         $model = $this->returnModel()->where(['in', 'id', $selection])->all();               
         foreach ($model as &$item) {
@@ -40,6 +41,7 @@ class AppAdminController extends Controller {
 
     /* Set Item order */
 
+    /* Setting item order with arrows */
     public function actionSetArrowOrder($updown, $cur_order, $id, $cat_id) {
         $cur_item = $this->findModel($id);
         if ($updown == 'up') {
@@ -58,18 +60,20 @@ class AppAdminController extends Controller {
         $this->redirect(Yii::$app->request->referrer);
     }
 
+    /* Setting item order with setting certain position number */
     public function actionSetCertainOrder() {
         if (!Yii::$app->request->isAjax) return false;
-        $set_order = Yii::$app->request->post('order');
+        $set_order = Yii::$app->request->post('order');                                          // position that was set
 
         if (!preg_match("/\d+/i", $set_order)) return false;
         $cur_order = Yii::$app->request->post('cur_order');
-        $cat_id = Yii::$app->request->post('cat_id');
+        $cat_id = Yii::$app->request->post('cat_id');                                            // current position of the item
         $id = Yii::$app->request->post('id');
-        $min_order = $this->returnModel()->where(['category_id' => $cat_id])->min('`order`');
-        $max_order = $this->returnModel()->where(['category_id' => $cat_id])->max('`order`');
+        $min_order = $this->returnModel()->where(['category_id' => $cat_id])->min('`order`');    // lowest position in current category
+        $max_order = $this->returnModel()->where(['category_id' => $cat_id])->max('`order`');    // highest position in current category
         if ($set_order == $cur_order) return $this->redirect(Yii::$app->request->referrer);
-        $replacing_item = $this->findModel($id);
+        $replacing_item = $this->findModel($id);  // item which is replacing
+        /* if replacing item is within max and min positions and set position is not occupied by another item: */
         if (!$this->returnModel()->where(['order' => $set_order])->andWhere(['category_id' => $cat_id])->one() && $set_order < $max_order && $set_order > $min_order) {
             $replacing_item->order = $set_order;
             $replacing_item->save();
@@ -80,6 +84,7 @@ class AppAdminController extends Controller {
             $replacing_item->order = $set_order;
             $replacing_item->save();
             if ($set_order > $cur_order) {
+                /* moving all the items between current and set positions to 1 position back*/
                 $models_change_order = $this->returnModel()->where(['category_id' => $cat_id])->andWhere(['>', 'order', $cur_order])->andWhere(['<=', 'order', $set_order])->andWhere(['<>', 'id', $id])->all();
                 foreach ($models_change_order as &$item) {
                     $item->order = $item->order - 1;
@@ -87,6 +92,7 @@ class AppAdminController extends Controller {
                 }
             }
             if ($set_order < $cur_order) {
+                /* moving all the items between current and set positions to 1 position forward*/
                 $models_change_order = $this->returnModel()->where(['category_id' => $cat_id])->andWhere(['<', 'order', $cur_order])->andWhere(['>=', 'order', $set_order])->andWhere(['<>', 'id', $id])->all();
                 foreach ($models_change_order as &$item) {
                     $item->order = $item->order + 1;

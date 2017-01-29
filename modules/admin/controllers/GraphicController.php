@@ -14,33 +14,21 @@ class GraphicController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    /*Displaying page*/
     public function actionUpdate()
     {
-        if ($id = Yii::$app->request->post('id')){
-            debug(Yii::$app->request->post());
-            $model = Graphic::findOne($id);
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $model->img = UploadedFile::getInstance($model, 'img');
-                if ($model->img) {
-                    $model->upload();
-                }
-                unset($model->img);
-            }
-            return $this->refresh();
-        }
-        else {
-            $banners = Graphic::find()->where(['gallery' => '0'])->all();
-            $gallery_items = Graphic::find()->where(['gallery' => '1'])->all();
-            $galleries_names = Carousel::find()->all();
+        $banners = Graphic::find()->where(['gallery' => '0'])->all();
+        $gallery_items = Graphic::find()->where(['gallery' => '1'])->all();
+        $galleries_names = Carousel::find()->all();
 
-            return $this->render('update', [
-                'banners' => $banners,
-                'gallery_items' => $gallery_items,
-                'galleries_names' => $galleries_names,
-            ]);
-        }
+        return $this->render('update', [
+            'banners' => $banners,
+            'gallery_items' => $gallery_items,
+            'galleries_names' => $galleries_names,
+        ]);
     }
 
+    /* Updating slide/banner */
     public function actionUpdateSlide() {
         if (Yii::$app->request->isAjax) {
             if ($id = Yii::$app->request->post('id')){
@@ -57,6 +45,7 @@ class GraphicController extends \yii\web\Controller
         }
     }
 
+    /* Adding new slide for carousel */
     public function actionNewSlide() {
         if (Yii::$app->request->isAjax) {
             if (Yii::$app->request->post()){
@@ -76,6 +65,7 @@ class GraphicController extends \yii\web\Controller
         }
     }
 
+    /* Deleting slide from carousel */
     public function actionDelete() {
         if (Yii::$app->request->isAjax) {
             if (Yii::$app->request->post()){

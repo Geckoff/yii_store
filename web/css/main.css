@@ -586,7 +586,6 @@ ul.sub-menu {
 }
 
 .item {
-  padding-left: 100px;
 }
 
 
@@ -899,6 +898,16 @@ h2.title {
   font-size: 14px;
   font-weight: 400;
   color: #696763;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.item-product-name {
+    height: 40px;
+    display: table;
+    width: 100%;
+    margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .productinfo img{

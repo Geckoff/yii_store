@@ -1,3 +1,5 @@
+<?php use yii\helpers\Html;   ?>
+
 <div class="col-sm-3">
 	<div class="left-sidebar">
 		<h2>Category</h2>
@@ -31,7 +33,11 @@
 		</div><!--/price-range-->
 
 		<div class="shipping text-center"><!--shipping-->
-			<img src="/images/home/shipping.jpg" alt="" />
+			<?php if ($graphic->link):?>
+                <a href="<?=$graphic->link?>"><?= Html::img($img->getUrl()) ?></a>
+            <?php else: ?>
+                <?= Html::img($img->getUrl()) ?>
+            <?php endif; ?>
 		</div><!--/shipping-->
 
 	</div>

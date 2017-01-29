@@ -10,6 +10,7 @@ use Yii;
 
 class PostController extends AppController {
 
+    /* Displaying the post */
     public function actionView() {
         $slug = Yii::$app->request->get('slug');
         $post = Post::find()->where(['slug' => $slug])->one();
@@ -17,6 +18,7 @@ class PostController extends AppController {
             throw new \yii\web\HttpException(404, 'Page not found.');
         }
 
+        /* Unique layout for Contacts page */
         if ($slug == 'contacts') {
             $model = new ContactForm();
             if ($model->load(Yii::$app->request->post()) && $model->contact(Parameters::getParam('email'))) {

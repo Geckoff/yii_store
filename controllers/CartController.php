@@ -12,6 +12,7 @@ use Yii;
 /**
 * Working with cart.
 * Items added into the cart are saved into $_SESSION array.
+* All cart functions are performed with AJAX requests.
 **/
 
 class CartController extends AppController {
@@ -24,6 +25,7 @@ class CartController extends AppController {
         $this->session->open();
     }
 
+    /* Adding item into the cart */
     public function actionAdd() {
         $id = Yii::$app->request->get('id');
         $qty = (int)Yii::$app->request->get('qty');
@@ -42,6 +44,7 @@ class CartController extends AppController {
         return $this->render('cart-modal', compact('session', 'items_to_show'));
     }
 
+    /* Deleting all the items from cart */
     public function actionClear() {
         $session = $this->session;
         $session->remove('cart');
@@ -52,6 +55,7 @@ class CartController extends AppController {
         return $this->render('cart-modal', compact('session', 'items_to_show'));
     }
 
+    /* Deleting certain item from cart */
     public function actionDelItem() {
         $id = Yii::$app->request->get('id');
         $session = $this->session;
@@ -62,6 +66,7 @@ class CartController extends AppController {
         return $this->render('cart-modal', compact('session', 'items_to_show'));
     }
 
+    /* Deleting item while user is on the checkout page */
     public function actionDelItemView() {
         $id = Yii::$app->request->get('id');
         $session = $this->session;
@@ -72,6 +77,10 @@ class CartController extends AppController {
         echo json_encode($qty_sum);    // array of values to insert into cart table at the checkout page
     }
 
+    /**
+    * Displaying the cart.
+    * Cart layout is rendering in the modal window
+    **/
     public function actionShow() {
         $session = $this->session;
         $this->layout = false;  // loading only view file, without layout;
@@ -79,6 +88,11 @@ class CartController extends AppController {
         return $this->render('cart-modal', compact('session', 'cart_products', 'items_to_show'));
     }
 
+    /**
+    * Viewing the checkout page.
+    * Saving the order if order form was submitted.
+    * Order is saved into DB with prices in currency that was selected by user.
+    **/
     public function actionView() {
         $session = $this->session;
         $this->setMeta('Cart');
@@ -106,6 +120,10 @@ class CartController extends AppController {
         return $this->render('view', compact('session', 'order'));
     }
 
+    /**
+    * Saving the order into OrderItems table.
+    * OrderItems table is part of Order and Item tables many-to-many relationship
+    **/
     protected function saveOrderItems($items, $order_id, $currency_rate) {
         foreach ($items as $id => $item) {
             $order_items = new OrderItems();    // creating OrderItems() object inside foreach, because we need...

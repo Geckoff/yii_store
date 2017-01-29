@@ -6,8 +6,13 @@ use app\models\Category;
 use app\models\Product;
 use Yii;
 
+/**
+* Single item page manipulations
+**/
+
 class ProductController extends AppController {
 
+    /* Displaying item*/
     public function actionView($slug) {
         $product = Product::find()->where(['slug' => $slug])->one();  // lazy loading
         if (empty($product)) {
@@ -19,6 +24,7 @@ class ProductController extends AppController {
         return $this->render('view', compact('product', 'hits'));
     }
 
+    /* Getting item's rating and quantity of voters*/
     public function actionGetRating() {
         $id = Yii::$app->request->get('id');
         $product = Product::findOne($id);
@@ -26,6 +32,9 @@ class ProductController extends AppController {
         return json_encode(['rating' => $rating, 'voters' => $product->voters]);
     }
 
+    /**
+    * Rating the item.
+    **/
     public function actionRate() {
         if (!Yii::$app->request->isAjax) {
             throw new \yii\web\HttpException(404, 'No ajax request');

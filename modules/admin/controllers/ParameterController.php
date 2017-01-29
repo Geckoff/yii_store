@@ -8,6 +8,10 @@ use Yii;
 
 class ParameterController extends \yii\web\Controller
 {
+
+    /**
+    * Displaying options page
+    **/
     public function actionIndex()
     {
         $options = [];
@@ -23,14 +27,16 @@ class ParameterController extends \yii\web\Controller
         ]);
     }
 
+    /**
+    * Updating parameter
+    **/
     public function actionUpdate()
     {
         if ($data = Yii::$app->request->post()) {
             $save = true;
             foreach ($data as $option => $param_arr) {
-                if ($option == '_csrf') continue;
-                elseif (is_array($param_arr['value'])) {
-
+                if ($option == '_csrf') continue;              // skipping csrf check parameter
+                elseif (is_array($param_arr['value'])) {       // for parameters that should be serialized
                     foreach ($param_arr['value'] as $nested_option => $nested_param_arr) {
                         if ($nested_param_arr['type']) {
                             if (!$this->validateParam($nested_param_arr['value'], $nested_param_arr['type'], $nested_param_arr['title'])) $save = false;
@@ -38,7 +44,7 @@ class ParameterController extends \yii\web\Controller
                     }
                     if ($save) $this->saveParameter($option, $param_arr['value'], true);
                 }
-                else {
+                else {      // for not serialized parameters
                     if ($param_arr['type']) {
                         if ($this->validateParam($param_arr['value'], $param_arr['type'], $param_arr['title'])) {
                             $this->saveParameter($option, $param_arr['value'], false);
@@ -52,6 +58,10 @@ class ParameterController extends \yii\web\Controller
         }
     }
 
+    /**
+    * Validating parameter.
+    * Type of parameter is set in `type` field of `parameter` table
+    **/
     private function validateParam($value, $type, $option) {
         $model = DynamicModel::validateData(['check_value' => $value], [
             ['check_value', $type]
@@ -63,11 +73,15 @@ class ParameterController extends \yii\web\Controller
         else return true;
     }
 
+
+    /**
+    * Saving parameter
+    **/
     private function saveParameter($option, $param_arr_value, $serialize) {
         $model = Parameter::find()->where(['name' => $option])->one();
         if ($serialize) $model->value = serialize($param_arr_value);
         else $model->value = $param_arr_value;
-        $model->save();            
+        $model->save();
     }
 
 }
