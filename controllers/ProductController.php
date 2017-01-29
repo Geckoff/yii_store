@@ -9,7 +9,6 @@ use Yii;
 class ProductController extends AppController {
 
     public function actionView($slug) {
-//        $id = Yii::$app->request->get('id');
         $product = Product::find()->where(['slug' => $slug])->one();  // lazy loading
         if (empty($product)) {
             throw new \yii\web\HttpException(404, 'The requested Product could not be found.');
@@ -29,7 +28,7 @@ class ProductController extends AppController {
 
     public function actionRate() {
         if (!Yii::$app->request->isAjax) {
-            throw new \yii\web\HttpException(404, 'This Page does not exist');
+            throw new \yii\web\HttpException(404, 'No ajax request');
         }
 
         $id = Yii::$app->request->get('id');
@@ -60,7 +59,7 @@ class ProductController extends AppController {
 
             $ratings_save_temp = [];
             foreach ($ratings_save as $rating_save) {
-                     // combining to array [id1=value1, id2=value2, id3=value3, ...]
+                // combining to array [id1=value1, id2=value2, id3=value3, ...]
                 $rating_save = implode('=', $rating_save);
                 $ratings_save_temp[] = $rating_save;
             }

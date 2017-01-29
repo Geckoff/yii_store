@@ -3,6 +3,10 @@
 namespace app\components;
 use yii\base\Widget;
 
+/**
+* Filters fot catalog products
+**/
+
 class SelectSortWidget extends Widget  {
 
     public $gets;

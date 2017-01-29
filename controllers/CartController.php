@@ -9,7 +9,10 @@ use app\models\OrderItems;
 use app\helpers\Currency;
 use Yii;
 
-
+/**
+* Working with cart.
+* Items added into the cart are saved into $_SESSION array.
+**/
 
 class CartController extends AppController {
 
@@ -31,7 +34,7 @@ class CartController extends AppController {
         $session = $this->session;
         $cart = new Cart();
         $cart->addToCart($product, $qty);
-        if (!Yii::$app->request->isAjax) {          // works if js is off and ajax request did not occured
+        if (!Yii::$app->request->isAjax) {          // works if js is off and ajax request did not occur
             return $this->redirect(Yii::$app->request->referrer);
         }
         $this->layout = false;  // loading only view file, without layout;

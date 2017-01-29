@@ -1,4 +1,9 @@
 <?php
+
+/**
+* Building Select list of categories
+**/
+
 $selected = '';
 $disabled = '';
 if ($this->category_add) $selected_var = false;

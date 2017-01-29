@@ -7,8 +7,15 @@ use app\helpers\Currency;
 use yii\data\Pagination;
 use Yii;
 
+/**
+* Controller is used for working with currencies ajax requests
+**/
+
 class AjaxController extends AppController {
 
+    /**
+    *  Saving new values of currency name and currency rate
+    **/
     protected function saveCookieCurrency($currency) {
         $rate = Currency::getRate($currency);
         if (!$rate) $rate = 1;
@@ -25,6 +32,9 @@ class AjaxController extends AppController {
         return $rate;
     }
 
+    /**
+    * Setting new currency
+    **/
     public function actionCurrencyRate() {
         $currency = Yii::$app->request->get('currency');
         $this->saveCookieCurrency($currency);
@@ -63,6 +73,10 @@ class AjaxController extends AppController {
         return $this->render('rangeview', compact('items', 'pages', 'gets'));
     }
 
+    /**
+    * Changing max and min price get parameters in url cosidering newly selected currency differential.
+    * Setting new currency.
+    **/
     public function actionConvertCurrency() {
         $min = Currency::getDollarPrice(Yii::$app->request->get('min'));
         $max = Currency::getDollarPrice(Yii::$app->request->get('max'));
@@ -73,6 +87,9 @@ class AjaxController extends AppController {
         return json_encode(['min' => $min, 'max' => $max, 'rate' => $rate]);
     }
 
+    /**
+    * Getting item price in euros and pounds
+    **/
     public function actionPoundEuroPrice() {
         if (!Yii::$app->request->isAjax) return false;
         $price = Yii::$app->request->post('price');

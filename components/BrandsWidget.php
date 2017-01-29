@@ -6,6 +6,12 @@ use yii\base\Widget;
 use app\models\Brand;
 use Yii;
 
+/**
+* Brands list.
+* $type = barelist for building menu list.
+* $type = select for building select tag.
+**/
+
 class BrandsWidget extends Widget  {
 
     public $type;

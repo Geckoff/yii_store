@@ -1,5 +1,9 @@
 <?php
 
+/**
+* Product description + image for catalog
+**/
+
 namespace app\components;
 use yii\base\Widget;
 

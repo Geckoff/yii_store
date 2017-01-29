@@ -5,6 +5,14 @@ namespace app\helpers;
 use Yii;
 use yii\base\Object;
 
+/**
+* Working with currencies.
+* Setting price in dollars as differential 1.
+* Other currencies have differentials against dollar.
+* By default all the prices in DB are saved in dollars.
+* If another currency is enabled system is using dynamical updating of prices.
+**/
+
 class Currency extends Object  {
 
     private $rate_euros;
@@ -28,6 +36,7 @@ class Currency extends Object  {
         return $currencies_rates;
     }
 
+    /* Getting price in designated currency */
     public function getCurrencyPrice($price, $currency) {
         switch ($currency) {
         case 'USD':
@@ -44,6 +53,9 @@ class Currency extends Object  {
         return $currency_price;
     }
 
+    /**
+    * Getting price of the item in "price + currency_sign" form
+    **/
     public static function getPrice($price, $sign = false, $qty = 1) {
         $currency_name = self::getBareCurrencyName($sign);
         if (!$sign) $currency_name = $currency_name.' ';
@@ -52,6 +64,10 @@ class Currency extends Object  {
         return $final_price;
     }
 
+    /**
+    * Getting numeric price value in designated currensy.
+    * $price - price of the item in dollars
+    **/
     public static function getBarePrice($price, $round = false, $ceil_floor = false) {
         $cookies = Yii::$app->request->cookies;
         $currency_rate = $cookies->getValue('currency_rate', '1');
@@ -63,6 +79,9 @@ class Currency extends Object  {
         return $final_price;
     }
 
+    /**
+    * Getting currency name - just sing or 3-sing acronym, depending on $sign parameter
+    **/
     public static function getBareCurrencyName($sign = false) {
         $cookies = Yii::$app->request->cookies;
         $currency_name = $cookies->getValue('currency_name', 'USD');
@@ -77,6 +96,9 @@ class Currency extends Object  {
         return $currency_name;
     }
 
+    /**
+    * Getting price in dollars
+    **/
     public static function getDollarPrice($price) {
         $cookies = Yii::$app->request->cookies;  
         $currency_rate = $cookies->getValue('currency_rate', '1');

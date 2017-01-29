@@ -94,10 +94,15 @@ $('#cart-view').on('click', '.del-item', function(){
 
 $('#currency').on('change', function (e) {
     var optionSelected = $("option:selected", this);
-    var currency = this.value;
+    var currency = this.value;   // currency 3 sign international designation
     gets = document.location.search;
     path = document.location.pathname;
     host = document.location.host;
+    /**
+    * If another currency was selected while user is on page where filters (get parameters) for ranging price were applied,
+    * we need to change cookies currency info as well as to change url min and max price parameters using seleted currency differential.
+    * Page is refreshing with applying of new ranging price parameters.
+    **/
     if (gets.indexOf('max=') + 1) {
 
         keys = {};
@@ -129,7 +134,7 @@ $('#currency').on('change', function (e) {
                     }
                     i++;
                 }
-                url = 'http://' + host + path + newGet;
+                url = 'http://' + host + path + newGet;  // composing new url
                 window.location.href = url;
             },
             error: function() {
@@ -137,6 +142,9 @@ $('#currency').on('change', function (e) {
             }
         });
     }
+    /**
+    * If page where new currency was selected does not have get parameters in its url, just cookies changing would work fine.
+    **/
     else {
         $.ajax({
             url: '/ajax/currency-rate',
@@ -169,10 +177,6 @@ $(document).ready(function(){
     });
 
     $( "#slider-range" ).on( "slidestop", function( event, ui ){
-
-        //val = $(this).slider('getValue');
-
-        //minmax = val['context']['value'].split(',');
         min = ui.values[0];
         max = ui.values[1];
         sort = $('#sort-val').data('val');
@@ -233,6 +237,9 @@ $(document).ready(function(){
     cur = $('#cur-rating').data('cur');
     id = $('#cur-rating').data('id');
 
+    /**
+    * Sending request to change rating of current item
+    **/
     $('#example-fontawesome-o').barrating({
         theme: 'fontawesome-stars-o',
         showSelectedRating: false,
@@ -246,12 +253,15 @@ $(document).ready(function(){
                     getRating(id);
                 },
                 error: function() {
-                    alert('error!');
+                    alert('404 not found!');
                 }
             });
         }
     });
 
+    /**
+    * Changing rating of the item on current page
+    **/
     function getRating(id) {
         $.ajax({
             url: '/product/get-rating',
@@ -259,7 +269,6 @@ $(document).ready(function(){
             type: 'GET',
             success: function(res) {
                 res = JSON.parse(res);
-                console.log(res);
                 if ($('p').is('#no-rating')) {
                     $('#no-rating').fadeOut(150);
                     setTimeout(function(){

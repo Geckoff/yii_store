@@ -1,3 +1,9 @@
+<?php
+/**
+* Tamplate used for building Category Menu on client side of the website
+**/
+?>
+
 <li>
     <a href="<?= \yii\helpers\Url::to(['category/view', 'slug' => $category['slug']]) ?>" data-id="<?=$category['id'] ?>" >
         <?=$category['name'] ?>

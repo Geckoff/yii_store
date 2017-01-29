@@ -76,11 +76,11 @@ $config = [
                 'brand/<slug:\w+>/page/<page:\d>' => 'brand/view',
                 'category/<id:\d+>' => 'category/view',
                 'category/<slug:\w+>' => 'category/view',
+                'product/<slug:rate>' => 'product/rate',             // exception for processing AJAX rating requests
+                'product/<slug:get-rating>' => 'product/get-rating', // exception for processing AJAX rating requests   
                 'product/<slug:\w+>' => 'product/view',
                 'brand/<slug:\w+>' => 'brand/view',
-                //'product/<id:\d+>' => 'product/view',
                 'search' => 'category/search',
-                //'<slug:((\w+-+)+\w+)|\w+>' => 'post/view',
                 '<slug:^(?!admin|login)(((\w+-+)+\w+)|\w+)>' => 'post/view',
             ],
         ],

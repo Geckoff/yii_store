@@ -12,6 +12,9 @@ use \yii\db\Query;
 
 class CategoryController extends AppController {
 
+    /**
+    * Main page of the website
+    **/
     public function actionIndex() {
 
         $sales_brands = Brand::find()->where(['sales' => '1'])->asArray()->all();
@@ -34,6 +37,9 @@ class CategoryController extends AppController {
         return $this->render('index', compact('hits', 'brand_sales_products', 'sales_brands', 'sales_products'));
     }
 
+    /**
+    * Composing Category Catalog page
+    **/
     public function actionView() {       // we can get id either from the url
         $slug = Yii::$app->request->get('slug');      // or from get array
         $category = Category::find()->where(['slug' => $slug])->one();
@@ -74,15 +80,17 @@ class CategoryController extends AppController {
 
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $this->setMeta('E-SHOPEER | '.$category->name, $category->keywords, $category->description );
-        if ($ajax = Yii::$app->request->isAjax) {
+        if ($ajax = Yii::$app->request->isAjax) {       // Price Range slider was used for filtering
             $this->layout = false;
             return $this->render('range', compact('products', 'pages', 'category', 'gets'));
         }
         return $this->render('view', compact('products', 'pages', 'category', 'gets'));
     }
 
+    /**
+    * Search Category Catalog page
+    **/
     public function actionSearch() {
-        //return 1;
         $q = (Yii::$app->request->get('q'));
         $this->setMeta('E-SHOPEER | Search: '.$q);
         if (!$q) {
@@ -112,7 +120,7 @@ class CategoryController extends AppController {
         }
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
-        if (Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {                  // Price Range slider was used for filtering 
             $this->layout = false;
             return $this->render('range', compact('products', 'pages', 'q', 'gets'));
         }

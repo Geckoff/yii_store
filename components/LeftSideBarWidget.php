@@ -3,6 +3,11 @@
 namespace app\components;
 use yii\base\Widget;
 
+/**
+* Left sidebar components.
+* Includes MenuWidget, BrandsWidget and PriceRangeWidget.
+**/
+
 class LeftSideBarWidget extends Widget  {
 
     public $controller;

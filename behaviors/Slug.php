@@ -8,6 +8,10 @@ use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii\helpers\Inflector;
 
+/**
+* Creating alias
+**/
+
 class Slug extends Behavior
 {
 	public $in_attribute = 'name';
@@ -30,6 +34,10 @@ class Slug extends Behavior
     	}
     }
 
+    /**
+    * Checking if slug is unique.
+    * If not, adding -n(number) as ending.
+    **/
     private function generateSlug( $slug )
     {
     	$slug = $this->slugify( $slug );
@@ -41,6 +49,7 @@ class Slug extends Behavior
     	}
     }
 
+    /* Composing slug with simple function or complicated Yii function if transliteration was applied*/
     private function slugify( $slug )
     {
     	if ( $this->translit ) {
