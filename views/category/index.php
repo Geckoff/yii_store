@@ -15,7 +15,7 @@ use app\helpers\Currency;
                             <?php foreach ($carousel as $slide):?>
     							<li data-target="#slider-carousel" data-slide-to="<?=$j ?>" <?php if ($j == 0) echo 'class="active"'?>></li>
                                 <?php $j++ ?>
-                            <?php endforeach; ?>                                      
+                            <?php endforeach; ?>
 						</ol>
 
 						<div class="carousel-inner">
@@ -85,9 +85,13 @@ use app\helpers\Currency;
 										<div class="single-products">
 											<div class="productinfo text-center">
                                                 <?php $mainImg = $single_product->getImage();   ?>
-												<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= Html::img($mainImg->getUrl(), ['alt' => $single_product->name]) ?></a>
+												<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= Html::img($mainImg->getUrl('480x480'), ['alt' => $single_product->name]) ?></a>
 												<h2><?= Currency::getPrice($single_product['price'], true);?></h2>
-												<p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= $single_product['name']  ?></a></p>
+                                                <div class="sales-product-name-wrap">
+                                                    <div class="sales-product-name">
+    												    <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $single_product->slug]) ?>"><?= $single_product['name']  ?></a></p>
+                                                    </div>
+                                                </div>
 												<a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $single_product->id]) ?>" data-id="<?= $single_product->id ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 

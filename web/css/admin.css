@@ -816,6 +816,10 @@ input#graphic-link {
     overflow: hidden;
 }
 
+.admin-dash .alert {
+    margin-top: 15px;
+}
+
 @media only screen and (max-width : 1199px) {
 
     .admin-dash .admin-mainmenu li a {

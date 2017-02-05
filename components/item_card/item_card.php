@@ -11,18 +11,25 @@ $product = $this->product;
                         <?php $mainImg = $product->getImage();  ?>
 						<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= Html::img($mainImg->getUrl('480x480'), ['alt' => $product->name]) ?></a>
 						<h2><?= Currency::getPrice($product->price, true);?></h2>
-                        <div class="item-product-name">
-                            <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>
+                        <div class="item-product-name-wrap">
+                            <div class="item-product-name">
+                                <p>
+                                    <a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a>
+                                </p>
+                            </div>
                         </div>
 						<a href="#" data-id="<?=$product->id ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 
 					</div>
 					<div class="product-overlay">
             			<div class="overlay-content">
-                            <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>
-                            <p><?= $product->content; ?></p>
+                            <div class="product-overl-name">
+                                <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>
+                            </div>
+                            <div class="product-overl-desc"><?= $product->content; ?></div>
             				<h2><?= Currency::getPrice($product->price, true);?></h2>
             				<a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id]) ?>" data-id="<?= $product->id ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            				<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>" class="btn btn-default add-to-cart">Details...</a>
             			</div>
             		</div>
                     <?php if($product->new): ?>
