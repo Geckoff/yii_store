@@ -16,6 +16,7 @@ class BrandController extends AppController {
     public function actionView() {
         $slug = Yii::$app->request->get('slug');
         $brand = Brand::find()->where(['slug' => $slug])->one();
+        $this->view->params['brand_id'] = $brand->id;  // making param available in layout view
         $gets = [];
         if (empty($brand)) {
             throw new \yii\web\HttpException(404, 'The requested Brand could not be found.');

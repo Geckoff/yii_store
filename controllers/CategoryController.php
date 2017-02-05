@@ -97,6 +97,7 @@ class CategoryController extends AppController {
     **/
     public function actionSearch() {
         $q = (Yii::$app->request->get('q'));
+        $this->view->params['search_request'] = $q;  // making param available in layout view
         $this->setMeta('E-SHOPEER | Search: '.$q);
         if (!$q) {
             return $this->render('search');

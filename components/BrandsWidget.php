@@ -23,7 +23,6 @@ class BrandsWidget extends Widget  {
     }
 
     public function run() {
-
         $brands = Brand::find()->asArray()->with('products')->all();
         $html = '';
         if ($this->type == 'barelist'){
@@ -52,7 +51,6 @@ class BrandsWidget extends Widget  {
             foreach ($brands as $brand) {
                 if (!empty($this->id)) {
                     $brand_id = is_array($this->id) ? $this->id['brand_id'] : $this->id;
-
                     if ($brand_id == $brand['id'] ) $active = 'class="active"';
                     else $active = '';
                 }

@@ -9,7 +9,7 @@ $product = $this->product;
 				<div class="single-products">
 					<div class="productinfo text-center">
                         <?php $mainImg = $product->getImage();  ?>
-						<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= Html::img($mainImg->getUrl('255x255'), ['alt' => $product->name]) ?></a>
+						<a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= Html::img($mainImg->getUrl('480x480'), ['alt' => $product->name]) ?></a>
 						<h2><?= Currency::getPrice($product->price, true);?></h2>
                         <div class="item-product-name">
                             <p><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name; ?></a></p>

@@ -11,9 +11,11 @@ use app\helpers\Currency;
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
+                            <?php $j = 0 ?>
+                            <?php foreach ($carousel as $slide):?>
+    							<li data-target="#slider-carousel" data-slide-to="<?=$j ?>" <?php if ($j == 0) echo 'class="active"'?>></li>
+                                <?php $j++ ?>
+                            <?php endforeach; ?>                                      
 						</ol>
 
 						<div class="carousel-inner">
@@ -32,10 +34,14 @@ use app\helpers\Currency;
 						</div>
 
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
+                            <div class="carousel-cell">
+							    <i class="fa fa-angle-left"></i>
+                            </div>
 						</a>
 						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
+                            <div class="carousel-cell">
+							    <i class="fa fa-angle-right"></i>
+                            </div>
 						</a>
 					</div>
 

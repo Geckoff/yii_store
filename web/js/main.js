@@ -4,6 +4,8 @@ $('.catalog').dcAccordion({
     speed: 300
 });
 
+
+
 /*price range widget*/
 if ($('div').is('#slider-range')) {
     $( "#slider-range" ).slider({
@@ -121,6 +123,10 @@ $('#currency').on('change', function (e) {
             url: '/ajax/convert-currency',
             data: {currency: currency, min: min, max: max},
             type: 'GET',
+            beforeSend: function() {
+                $('.currency-picker').addClass('invis');
+                $('.currency-group p').fadeIn(200);
+            },
             success: function(res) {
                 res = JSON.parse(res);
 
@@ -153,9 +159,12 @@ $('#currency').on('change', function (e) {
             url: '/ajax/currency-rate',
             data: {currency: currency},
             type: 'GET',
+            beforeSend: function() {
+                $('.currency-picker').addClass('invis');
+                $('.currency-group p').fadeIn(200);
+            },
             success: function(res) {
                 location.reload()
-                //alert(res);
             },
             error: function() {
                 alert('error!');
@@ -213,7 +222,7 @@ $(document).ready(function(){
                 else {
                     window.location.href = "http://" + document.location.host + "/ajax/range" + "?min=" + min + "&max=" + max;
                 }
-            }                                                        
+            }
             data.slug = slug;
         }
 
@@ -348,4 +357,26 @@ $(document).ready(function(){
 	        zIndex: 2147483647 // Z-Index for the overlay
 		});
 	});
+
+    /* Select styling */
+    $('.selectpicker').selectpicker({
+        container: 'store-picker'
+    });
+
+    /* dropdown item Brand in main menu */
+    if ($("html").width() <= 768) {
+        $('.mainmenu .sub-menu').attr('id', 'dropdown-menu-collapse');
+        $('.mainmenu .sub-menu').attr('class', 'collapse');
+        $('.left-ul-wrap').addClass('collapse');
+        $('.left-menu-dropdown').addClass('collapsed');
+    }
+
+    /* range slider features */
+    $('.ui-slider-range').append('<div class="range-slider-inside"><p><span></span></p></div><div class="inside-tongue">');
+    var range_val = $('#amount').val();
+    $('.range-slider-inside p span').text(range_val);
+    $( "#slider-range" ).on( "slide", function(event, ui) {
+        var range_val = $('#amount').val();
+        $('.range-slider-inside p span').text(range_val);
+    });
 });

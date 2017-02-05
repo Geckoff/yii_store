@@ -56,16 +56,16 @@ class PriceRangeWidget extends Widget  {
             $slider_val_min = $min_product;
             $slider_val_max = $max_product;
         }
-        $html = '<p>'.$range_name.'<p>
+        $html = '<p class="range-name">'.$range_name.'<p>
                 <div class="range-hide">
                     <input type="text" class="span2" value="" data-slider-min="'.$min_product.'" data-slider-max="'.$max_product.'" data-slider-step="5" data-slider-value="['.$slider_val_min.','.$slider_val_max.']" id="sl2" >
                     <br /><b class="pull-left">'.$min_product.'</b> <b class="pull-right">'.$max_product.'</b>
                 </div>
                 <p>
-                  <label for="amount">Price range:</label>
-                  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                  <input type="text" id="amount" readonly">
                 </p>
-
+                <p class="range-min-product">'.$min_product.'</p>
+                <p class="range-max-product">'.$max_product.'</p>
                 <div id="slider-range"></div>';
         return $html;
     }
