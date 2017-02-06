@@ -42,13 +42,22 @@
 			</div>
 		</div><!--/price-range-->
 
-		<div class="shipping text-center"><!--shipping-->
-			<?php if ($graphic->link):?>
-                <a href="<?=$graphic->link?>"><?= Html::img($img->getUrl()) ?></a>
-            <?php else: ?>
-                <?= Html::img($img->getUrl()) ?>
-            <?php endif; ?>
-		</div><!--/shipping-->
+		<!--shipping-->
+            <?php foreach ($graphics as $graphic):?>
+                <?php if ($graphic->id == 5): ?>
+                <div class="shipping shipping-mobile text-center">
+                <?php else: ?>
+                <div class="shipping shipping-desktop text-center">
+                <?php endif; ?>
+                <?php $img = $graphic->getImage();  ?>
+                    <?php if ($graphic->link):?>
+                    <a href="<?=$graphic->link?>"><?= Html::img($img->getUrl()) ?></a>
+                    <?php else: ?>
+                    <?= Html::img($img->getUrl()) ?>
+                    <?php endif; ?>       
+                </div>
+            <?php  endforeach; ?>
+		<!--/shipping-->
 
 	</div>
 </div>

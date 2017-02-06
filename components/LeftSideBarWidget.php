@@ -20,8 +20,7 @@ class LeftSideBarWidget extends Widget  {
     }
 
     public function run() {
-        $graphic = Graphic::findOne(6);
-        $img = $graphic->getImage();
+        $graphics = Graphic::find()->where(['id' => [5, 6]])->all();     
         include __DIR__.'/left_sidebar/left_sidebar.php';
     }
 }
