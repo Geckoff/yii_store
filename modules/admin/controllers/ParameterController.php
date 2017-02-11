@@ -46,14 +46,12 @@ class ParameterController extends \yii\web\Controller
                 }
                 else {      // for not serialized parameters
                     if ($param_arr['type']) {
-                        if ($this->validateParam($param_arr['value'], $param_arr['type'], $param_arr['title'])) {
-                            $this->saveParameter($option, $param_arr['value'], false);
-                        }
-                        else $save = false;
+                        if (!$this->validateParam($param_arr['value'], $param_arr['type'], $param_arr['title'])) $save = false;
                     }
+                    if ($save) $this->saveParameter($option, $param_arr['value'], false);
                 }
             }
-            if ($save) Yii::$app->session->setFlash('success', 'All options have been saved');
+            if ($save) Yii::$app->session->setFlash('success', 'All options have been saved');    
             $this->redirect(Yii::$app->request->referrer);
         }
     }

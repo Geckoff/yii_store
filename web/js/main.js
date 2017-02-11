@@ -364,7 +364,7 @@ $(document).ready(function(){
     });
 
     /* dropdown item Brand in main menu */
-    if ($("html").width() <= 768) {
+    if ($("html").width() < 768) {
         $('.mainmenu .sub-menu').attr('id', 'dropdown-menu-collapse');
         $('.mainmenu .sub-menu').attr('class', 'collapse');
         $('.left-ul-wrap').addClass('collapse');

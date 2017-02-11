@@ -55,7 +55,7 @@ use app\helpers\Currency;
 			<div class="row">
 				<?= \app\components\LeftSideBarWidget::widget(['controller' => false]) ?>
 
-				<div class="col-sm-9 padding-right">
+				<div class="col-sm-9 padding-right right-column">
                     <?php if(!empty($hits)): ?>
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>

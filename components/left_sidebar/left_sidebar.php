@@ -54,7 +54,7 @@
                     <a href="<?=$graphic->link?>"><?= Html::img($img->getUrl()) ?></a>
                     <?php else: ?>
                     <?= Html::img($img->getUrl()) ?>
-                    <?php endif; ?>       
+                    <?php endif; ?>
                 </div>
             <?php  endforeach; ?>
 		<!--/shipping-->

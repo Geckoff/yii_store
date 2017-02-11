@@ -103,7 +103,7 @@ ltAppAsset::register($this);
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-9">
+					<div class="col-sm-12">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle-store navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -134,7 +134,7 @@ ltAppAsset::register($this);
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-    
+
     <?=$content ?>
 
 	<footer id="footer"><!--Footer-->
@@ -143,29 +143,31 @@ ltAppAsset::register($this);
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+                            <div class="footer-logo">
+                                <?=Html::img('@web/images/home/logo.png', ['alt' => 'Random Stuff']) ?>
+                            </div>
+							<p>This is not a real online store. Just a test version of Yii2 based system.</p>
 						</div>
 					</div>
 					<div class="col-sm-7">
 						<div class="col-sm-3">
                             <div class="single-widget my-widget">
-    							<ul class="nav nav-pills nav-stacked">
+    							<ul class="nav nav-pills nav-stacked footer-menu">
                                     <?= \app\components\MenuBuilderWidget::widget(['type' => 'footer']) ?>
     							</ul>
     						</div>
 						</div>
                         <div class="col-sm-9">
                             <div class="single-widget free-call">
-                                <h4>Free call:</h4>
+                                <h4>Free call</h4>
     							<p><?= Parameters::getParam('phone') ?></p>
     						</div>
 						</div>
                     </div>
 					<div class="col-sm-3">
 						<div class="address">
-							<img src="images/home/map.png" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+							<?=Html::img('@web/images/home/map.png', ['alt' => 'map']) ?>
+							<p>1563 Wellington Ct., Loveland, CO</p>
 						</div>
 					</div>
 				</div>
@@ -175,8 +177,8 @@ ltAppAsset::register($this);
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+					<p class="pull-left footer-copyright">Copyright © 2017 Andrei Hetsevich. All rights reserved.</p>
+					<p class="pull-right"><?=Html::img('@web/images/home/fpro.png', ['alt' => 'fpro.by']) ?>  </p>
 				</div>
 			</div>
 		</div>
@@ -188,9 +190,8 @@ ltAppAsset::register($this);
         'header' => '<h2>Cart</h2>',
         'id' => 'cart',
         'size' => 'modal-lg',
-        'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">Continue Shopping</button>
-                     <a href="'.\yii\helpers\Url::to(['cart/view']).'" type="button" class="btn btn-success">Proceed to checkout</a>
-                     <button type="button" class="btn btn-danger" onclick="clearCart()">Delete all items</button>'
+        'footer' => '<a href="'.\yii\helpers\Url::to(['cart/view']).'" type="button" class="btn btn-default proceed shop-button">Proceed to checkout</a>
+                     <button type="button" class="btn btn-default delete-all shop-button" onclick="clearCart()">Delete all items</button>'
     ]);
 
     \yii\bootstrap\Modal::end();
