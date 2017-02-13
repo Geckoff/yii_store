@@ -191,7 +191,7 @@ ltAppAsset::register($this);
         'id' => 'cart',
         'size' => 'modal-lg',
         'footer' => '<a href="'.\yii\helpers\Url::to(['cart/view']).'" type="button" class="btn btn-default proceed shop-button">Proceed to checkout</a>
-                     <button type="button" class="btn btn-default delete-all shop-button" onclick="clearCart()">Delete all items</button>'
+                     <button type="button" class="btn btn-default delete-all shop-button shop-button-danger" onclick="clearCart()">Delete all items</button>'
     ]);
 
     \yii\bootstrap\Modal::end();

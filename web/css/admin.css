@@ -678,6 +678,7 @@ input#graphic-link {
     padding: 0 25px;
     font-size: 18px;
     color: #fff;
+    text-decoration: none !important;
 }
 
 .admin-dash .admin-mainmenu li:first-of-type a {

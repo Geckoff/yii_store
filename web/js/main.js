@@ -236,6 +236,7 @@ $(document).ready(function(){
                 $('.features_items').fadeIn(200);
                 $('.features_items').html(res);
                 cardRating();
+                selectPicker2();
             },
             error: function() {
                 alert('error!');
@@ -362,6 +363,20 @@ $(document).ready(function(){
     $('.selectpicker').selectpicker({
         container: 'store-picker'
     });
+
+    function selectPicker2() {
+        $('.selectpicker2').selectpicker({
+            container: 'store-picker'
+        });
+        $('.item-filters ul li:nth-child(2) span:first-of-type').html('Price: <i class="fa fa-long-arrow-up" aria-hidden="true"></i>');
+        $('.item-filters ul li:nth-child(3) span:first-of-type').html('Price: <i class="fa fa-long-arrow-down" aria-hidden="true"></i>');
+        if ($('.item-filters button span.filter-option').text() == 'Price: asc') $('.item-filters button span.filter-option').html('Price: <i class="fa fa-long-arrow-up" aria-hidden="true"></i>');
+        if ($('.item-filters button span.filter-option').text() == 'Price: desc') $('.item-filters button span.filter-option').html('Price: <i class="fa fa-long-arrow-down" aria-hidden="true"></i>');
+    }
+
+    if ($('select').is('#filters')) {
+        selectPicker2();
+    }
 
     /* dropdown item Brand in main menu */
     if ($("html").width() < 768) {

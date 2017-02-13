@@ -1,4 +1,7 @@
-<?php use app\helpers\Currency;   ?>
+<?php
+    use app\helpers\Currency;
+    use yii\helpers\Html;
+?>
 <?php if (!empty($session['cart'])): ?>
         <div class="table-responsive">
             <table class="table table-hover table-stripped">
@@ -12,14 +15,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php //debug($session['cart'])  ?>
-                <?php //debug($items_to_show)  ?>
                 <?php foreach ($items_to_show as $id => $item): ?>
                     <?php $mainImg = $item->getImage();   ?>
                     <tr>
 
                         <td><?= \yii\helpers\Html::img($mainImg->getUrl(), ['alt' => $item->name, 'height'=>'50px']) ?></td>
-                        <td><?= $item->name ?></td>
+                        <td class="title-cart"><a href="<?=\yii\helpers\Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $item->name ?></a></td>
                         <td><?= $item->qty ?></td>
                         <td><?= Currency::getPrice($item->price, true);?></td>
                         <td><span data-id="<?= $id ?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
